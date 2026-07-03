@@ -1,0 +1,19 @@
+{
+  "name": "@kortex/example-mcp-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "dependencies": {
+    "@kortex/bootstrap": "workspace:*",
+    "@kortex/core": "workspace:*",
+    "@kortex/mcp": "workspace:*",
+    "@kortex/tools": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

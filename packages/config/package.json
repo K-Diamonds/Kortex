@@ -1,0 +1,50 @@
+{
+  "name": "@kortex/config",
+  "version": "1.0.0",
+  "description": "Environment-based configuration for Kortex",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@kortex/core": "workspace:*",
+    "@kortex/errors": "workspace:*",
+    "@kortex/logger": "workspace:*",
+    "@kortex/openai": "workspace:*",
+    "@kortex/anthropic": "workspace:*",
+    "@kortex/gemini": "workspace:*",
+    "@kortex/openrouter": "workspace:*",
+    "@kortex/ollama": "workspace:*",
+    "@kortex/lmstudio": "workspace:*",
+    "@kortex/openclaw": "workspace:*",
+    "@kortex/hermes": "workspace:*",
+    "@kortex/postgres": "workspace:*",
+    "@kortex/redis": "workspace:*",
+    "@kortex/pgvector": "workspace:*",
+    "@kortex/qdrant": "workspace:*",
+    "@kortex/tools": "workspace:*",
+    "@kortex/agents": "workspace:*",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
