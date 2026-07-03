@@ -32,6 +32,7 @@ QDRANT_API_KEY=
 # Embeddings
 EMBEDDING_PROVIDER=openai
 EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_DIMENSIONS=1536
 
 # Tools & debug
 MCP_ENABLED=false

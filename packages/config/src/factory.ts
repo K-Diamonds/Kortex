@@ -112,7 +112,10 @@ async function loadVectorProvider(
   if (name === 'none') return undefined;
   if (name === 'pgvector') {
     const { PgVectorProvider } = await import('@kortex/pgvector');
-    return new PgVectorProvider({ databaseUrl: config.database.url! });
+    return new PgVectorProvider({
+      databaseUrl: config.database.url!,
+      dimensions: config.embeddingDimensions,
+    });
   }
   if (name === 'qdrant') {
     const { QdrantVectorProvider } = await import('@kortex/qdrant');

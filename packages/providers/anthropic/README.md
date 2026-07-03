@@ -1,5 +1,19 @@
 # @kortex/anthropic
 
-**Placeholder package** — not part of the Kortex MVP.
+**Status: Beta** — Anthropic Messages API adapter for Kortex.
 
-The MVP ships `@kortex/openai` only. This folder reserves the package name for a future adapter.
+| Capability | Supported |
+|------------|-----------|
+| Chat | Yes |
+| Streaming | Yes |
+| Embeddings | No — use `EMBEDDING_PROVIDER=openai` for RAG |
+
+## Environment
+
+```env
+AI_PROVIDER=anthropic
+ANTHROPIC_API_KEY=...
+AI_MODEL=claude-3-5-sonnet-latest
+```
+
+Kortex is currently in alpha / developer preview.

@@ -25,3 +25,13 @@ export async function createDbFromEnv(): Promise<KortexDatabase> {
 export { schema };
 export * from './schema.js';
 export { ensureKortexSchema, ensurePgVector, kortexSchemaSql, pgvectorSql } from './pgvector.js';
+export {
+  assertEmbeddingVectorLength,
+  assertEmbeddingsSchemaDimensions,
+  DEFAULT_EMBEDDING_DIMENSIONS,
+  embeddingsTableSql,
+  ensureEmbeddingsTable,
+  getEmbeddingsTableDimensions,
+  type EnsureEmbeddingsTableOptions,
+} from './embeddings-schema.js';
+export type { EnsureKortexSchemaOptions } from './pgvector.js';

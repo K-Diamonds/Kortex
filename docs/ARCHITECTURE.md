@@ -38,7 +38,7 @@ The `AIRuntime` class orchestrates all providers:
 
 ## Provider Switching
 
-Set `AI_PROVIDER` in `.env`. The `fromEnv()` factory in `@kortex/bootstrap` dynamically loads the correct adapter — no code changes required.
+Set `AI_PROVIDER` in `.env`. Call `createKortexFromEnv()` from `@kortex/config` to dynamically load the correct adapter — no code changes required.
 
 ## Data Flow (RAG)
 

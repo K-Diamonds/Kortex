@@ -143,7 +143,7 @@ export class AnthropicProvider implements AIProvider {
     yield { content: '', done: true, model };
   }
 
-  async embed(options: EmbedOptions): Promise<EmbedResponse> {
+  async embed(_options: EmbedOptions): Promise<EmbedResponse> {
     throw new Error('Anthropic does not provide embeddings; set EMBEDDING_PROVIDER=openai');
   }
 }

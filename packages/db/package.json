@@ -1,7 +1,7 @@
 {
   "name": "@kortex/db",
-  "version": "0.1.0",
-  "description": "PostgreSQL schema and Drizzle ORM for Kortex",
+  "version": "0.1.0-alpha",
+  "description": "PostgreSQL schema and Drizzle ORM for Kortex. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -16,7 +16,11 @@
       "import": "./dist/schema.js"
     }
   },
-  "files": ["dist", "drizzle", "sql"],
+  "files": [
+    "dist",
+    "drizzle",
+    "sql"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -26,7 +30,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:bootstrap": "tsx scripts/apply-schema.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.2",
@@ -37,6 +42,7 @@
     "dotenv": "^16.4.7",
     "drizzle-kit": "^0.31.4",
     "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.2"
   }
 }

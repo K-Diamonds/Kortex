@@ -2,9 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.0] - 2026-07-03
+## [0.1.0-alpha] - 2026-07-03
 
-### Kortex v1.0 — production-ready open-source AI Runtime Framework
+### Kortex 0.1.0-alpha — developer preview
+
+**Kortex is currently in alpha / developer preview.** It is not production-ready yet. APIs, adapters, and configuration may change before `1.0.0`.
+
+### Production readiness (alpha)
+
+| Area | Status |
+|------|--------|
+| Core interfaces | Stable foundation |
+| OpenAI provider | Working |
+| Postgres memory | Working |
+| pgvector vector store | Working |
+| Other LLM providers | Experimental |
+| Redis / Qdrant | Experimental |
+| RAG | Experimental |
+| Agents | Experimental |
+| MCP | Experimental |
+
+### Known limitations
+
+- No npm publish or long-term support guarantees during alpha
+- Reference path: OpenAI + Postgres + pgvector; other adapters less tested
+- OpenTelemetry not included
+- MCP and agents are early implementations
+
+### What's included
 
 **Multi-LLM:** OpenAI, Anthropic, Gemini, OpenRouter, Ollama, LM Studio, OpenClaw, Hermes
 
@@ -18,13 +43,11 @@ All notable changes to this project will be documented in this file.
 
 **Agents:** Agent definitions, system instructions, memory-enabled and tool-enabled execution
 
-**Chatbot demo:** Next.js app with streaming, provider selector, memory/RAG toggles, file upload, tools panel
+**Chatbot demo:** Next.js reference app with streaming, provider selector, memory/RAG toggles
 
-**Docker:** `docker compose up -d` for Postgres+pgvector, Redis, Qdrant
+**Docker:** Optional `docker compose` for Postgres+pgvector, Redis, Qdrant
 
-**Docs:** Full documentation site at `apps/docs-site` (`pnpm docs`)
-
-**DevOps:** GitHub Actions CI, `.env.example`, CONTRIBUTING, SECURITY, LICENSE
+**Docs:** Documentation site (`pnpm docs`)
 
 ### API
 
@@ -36,4 +59,4 @@ await kortex.chat({ userId, sessionId, message: "Hello" });
 
 ## [0.1.0] - 2026-07-02
 
-Initial MVP scaffold.
+Initial monorepo scaffold.

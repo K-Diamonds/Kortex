@@ -19,6 +19,7 @@ export interface KortexConfig {
   vectorProvider: VectorProviderName;
   embeddingProvider: EmbeddingProviderName;
   embeddingModel: string;
+  embeddingDimensions: number;
   mcpEnabled: boolean;
   openai: { apiKey?: string; model: string; baseUrl?: string };
   anthropic: { apiKey?: string; model: string; baseUrl?: string };
@@ -70,6 +71,18 @@ export function getModelForProvider(config: KortexConfig): string {
   }
 }
 
+function parseEmbeddingDimensions(env: NodeJS.ProcessEnv): number {
+  const raw = getEnv(env, 'EMBEDDING_DIMENSIONS', '1536') ?? '1536';
+  const dimensions = Number(raw);
+  if (!Number.isInteger(dimensions) || dimensions <= 0) {
+    throw new ConfigError(
+      'EMBEDDING_DIMENSIONS must be a positive integer',
+      'EMBEDDING_DIMENSIONS',
+    );
+  }
+  return dimensions;
+}
+
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
   const aiProvider = (getEnv(env, 'AI_PROVIDER', 'openai') ?? 'openai') as AIProviderName;
 
@@ -81,6 +94,7 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
     embeddingProvider: (getEnv(env, 'EMBEDDING_PROVIDER', 'openai') ??
       'openai') as EmbeddingProviderName,
     embeddingModel: getEnv(env, 'EMBEDDING_MODEL', 'text-embedding-3-small') ?? 'text-embedding-3-small',
+    embeddingDimensions: parseEmbeddingDimensions(env),
     mcpEnabled: bool(env, 'MCP_ENABLED', false),
     openai: {
       apiKey: getEnv(env, 'OPENAI_API_KEY'),
@@ -164,6 +178,14 @@ export function validateConfig(config: KortexConfig): void {
   }
   if (config.vectorProvider === 'pgvector' && !config.database.url) {
     throw new ConfigError('DATABASE_URL is required when VECTOR_PROVIDER=pgvector', 'DATABASE_URL');
+  }
+  if (config.vectorProvider === 'pgvector') {
+    if (!Number.isInteger(config.embeddingDimensions) || config.embeddingDimensions <= 0) {
+      throw new ConfigError(
+        'EMBEDDING_DIMENSIONS must be a positive integer when VECTOR_PROVIDER=pgvector',
+        'EMBEDDING_DIMENSIONS',
+      );
+    }
   }
   if (config.vectorProvider === 'qdrant' && !config.qdrant.url) {
     throw new ConfigError('QDRANT_URL is required when VECTOR_PROVIDER=qdrant', 'QDRANT_URL');

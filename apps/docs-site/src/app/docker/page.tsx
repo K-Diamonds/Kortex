@@ -37,7 +37,13 @@ export default function DockerPage() {
         </table>
 
         <h2>Apply database schema</h2>
+        <p style={{ color: '#d4d4d8' }}>
+          Set <code>EMBEDDING_DIMENSIONS</code> in <code>.env</code> before the first bootstrap if you are not
+          using the default <code>1536</code>. pgvector column size cannot be changed safely after the{' '}
+          <code>embeddings</code> table is created.
+        </p>
         <Code>{`DATABASE_URL=postgresql://postgres:postgres@localhost:5432/kortex
+EMBEDDING_DIMENSIONS=1536
 pnpm db:schema`}</Code>
       </DocPage>
     </>

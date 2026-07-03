@@ -1,5 +1,19 @@
 # @kortex/gemini
 
-**Placeholder package** — not part of the Kortex MVP.
+**Status: Beta** — Google Gemini adapter for Kortex.
 
-The MVP ships `@kortex/openai` only. This folder reserves the package name for a future adapter.
+| Capability | Supported |
+|------------|-----------|
+| Chat | Yes |
+| Streaming | Yes |
+| Embeddings | Yes |
+
+## Environment
+
+```env
+AI_PROVIDER=gemini
+GEMINI_API_KEY=...
+AI_MODEL=gemini-1.5-flash
+```
+
+Kortex is currently in alpha / developer preview.

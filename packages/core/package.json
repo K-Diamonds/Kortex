@@ -1,7 +1,7 @@
 {
   "name": "@kortex/core",
-  "version": "1.0.0",
-  "description": "Provider-agnostic Kortex runtime — MVP",
+  "version": "0.1.0-alpha",
+  "description": "Provider-agnostic Kortex runtime. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -13,7 +13,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -25,14 +27,6 @@
   "dependencies": {
     "@kortex/errors": "workspace:*",
     "@kortex/logger": "workspace:*"
-  },
-  "peerDependencies": {
-    "@kortex/config": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "@kortex/config": {
-      "optional": true
-    }
   },
   "devDependencies": {
     "tsup": "^8.3.5",

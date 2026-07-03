@@ -14,7 +14,7 @@ The recommended sequence for building and shipping Kortex. Each step depends on 
 | 6 | OpenAI provider | `packages/providers/openai` — `OpenAIProvider` | ✅ Done |
 | 7 | Postgres memory | `packages/memory/postgres` — `PostgresMemoryProvider` | ✅ Done |
 | 8 | Pgvector provider | `packages/vector/pgvector` — `PgVectorProvider` | ✅ Done |
-| 9 | `Runtime.fromEnv()` | `packages/core/src/from-env.ts` — dynamic adapter loading | ✅ Done |
+| 9 | `createKortexFromEnv()` | `packages/config/src/factory.ts` — dynamic adapter loading | ✅ Done |
 | 10 | Chatbot API | `apps/chatbot-demo/src/app/api/chat/route.ts` | ✅ Done |
 | 11 | Chatbot UI | `apps/chatbot-demo/src/components/ChatApp.tsx` | ✅ Done |
 | 12 | Tests | `packages/*/src/*.test.ts` | ✅ Done |
@@ -34,7 +34,7 @@ The recommended sequence for building and shipping Kortex. Each step depends on 
       ↓
  7  Postgres memory  +  8 Pgvector provider  +  @kortex/db migrations
       ↓
- 9  KortexRuntime.fromEnv()
+ 9  createKortexFromEnv() (@kortex/config)
       ↓
 10  Chatbot API  +  11 Chatbot UI
       ↓
@@ -85,7 +85,7 @@ To add a provider:
 
 1. Implement `AIProvider` from `@kortex/core` in `packages/providers/<name>/`
 2. Add env fields to `@kortex/config`
-3. Register a dynamic loader in `packages/core/src/from-env.ts`
+3. Register a dynamic loader in `packages/config/src/factory.ts`
 4. Add tests and document in `README.md`
 
 **Rule:** `@kortex/core` must never statically import provider packages — use dependency injection or dynamic `import()`.
@@ -94,8 +94,8 @@ To add a provider:
 
 | Step | Package |
 |------|---------|
-| 2–3, 9 | `@kortex/core` |
-| 4 | `@kortex/config` |
+| 2–3 | `@kortex/core` |
+| 4, 9 | `@kortex/config` |
 | 5 | `@kortex/logger` |
 | 6 | `@kortex/openai` |
 | 7 | `@kortex/postgres` |

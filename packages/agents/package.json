@@ -1,13 +1,20 @@
 {
   "name": "@kortex/agents",
-  "version": "0.1.0",
-  "description": "Reusable AI agents for Kortex",
+  "version": "0.1.0-alpha",
+  "description": "Reusable AI agents for Kortex. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
-  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

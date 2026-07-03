@@ -1,7 +1,7 @@
 {
   "name": "@kortex/bootstrap",
-  "version": "0.1.0",
-  "description": "Deprecated re-exports — use KortexRuntime.fromEnv() from @kortex/core",
+  "version": "0.1.0-alpha",
+  "description": "Deprecated re-exports — use createKortexFromEnv() from @kortex/config. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
@@ -12,7 +12,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",

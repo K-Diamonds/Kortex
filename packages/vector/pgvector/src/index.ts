@@ -1,5 +1,10 @@
-import { randomUUID } from 'node:crypto';
-import { ensureKortexSchema } from '@kortex/db';
+import {
+  assertEmbeddingVectorLength,
+  assertEmbeddingsSchemaDimensions,
+  DEFAULT_EMBEDDING_DIMENSIONS,
+  ensureKortexSchema,
+  getEmbeddingsTableDimensions,
+} from '@kortex/db';
 import type {
   VectorIndexOptions,
   VectorProvider,
@@ -7,18 +12,20 @@ import type {
   VectorSearchOptions,
   VectorSearchResult,
 } from '@kortex/core';
+import { randomUUID } from 'node:crypto';
 import pg from 'pg';
 
 export interface PgVectorOptions {
   connectionString?: string;
   databaseUrl?: string;
+  /** pgvector column size. Must match EMBEDDING_DIMENSIONS and your embedding model. Default: 1536. */
   dimensions?: number;
 }
 
 export class PgVectorProvider implements VectorProvider {
   readonly name = 'pgvector';
   private readonly pool: pg.Pool;
-  private readonly dimensions?: number;
+  private readonly dimensions: number;
   private indexReady: Promise<void> | null = null;
 
   constructor(options: PgVectorOptions) {
@@ -27,11 +34,21 @@ export class PgVectorProvider implements VectorProvider {
       throw new Error('PgVectorProvider requires connectionString or databaseUrl');
     }
     this.pool = new pg.Pool({ connectionString });
-    this.dimensions = options.dimensions;
+    this.dimensions = options.dimensions ?? DEFAULT_EMBEDDING_DIMENSIONS;
+    if (!Number.isInteger(this.dimensions) || this.dimensions <= 0) {
+      throw new Error(`Invalid pgvector dimensions: ${this.dimensions}`);
+    }
   }
 
-  async createIndex(_options?: VectorIndexOptions): Promise<void> {
-    this.indexReady ??= ensureKortexSchema(this.pool).then(() => undefined);
+  async createIndex(options?: VectorIndexOptions): Promise<void> {
+    const dimensions = options?.dimensions ?? this.dimensions;
+    this.indexReady ??= (async () => {
+      await ensureKortexSchema(this.pool, { embeddingDimensions: dimensions });
+      const actual = await getEmbeddingsTableDimensions(this.pool);
+      if (actual !== null) {
+        assertEmbeddingsSchemaDimensions(actual, dimensions);
+      }
+    })();
     return this.indexReady;
   }
 
@@ -40,6 +57,7 @@ export class PgVectorProvider implements VectorProvider {
     const results: VectorRecord[] = [];
 
     for (const record of records) {
+      assertEmbeddingVectorLength(record.embedding, this.dimensions);
       const id = randomUUID();
       const vectorStr = `[${record.embedding.join(',')}]`;
 
@@ -70,6 +88,7 @@ export class PgVectorProvider implements VectorProvider {
 
   async search(options: VectorSearchOptions): Promise<VectorSearchResult[]> {
     await this.createIndex();
+    assertEmbeddingVectorLength(options.embedding, this.dimensions);
     const limit = options.limit ?? 5;
     const vectorStr = `[${options.embedding.join(',')}]`;
     const minScore = options.minScore ?? 0;

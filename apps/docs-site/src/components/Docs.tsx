@@ -3,6 +3,7 @@ import Link from 'next/link';
 const nav = [
   { href: '/', label: 'Overview' },
   { href: '/getting-started', label: 'Getting Started' },
+  { href: '/backend-route', label: 'Backend Route' },
   { href: '/providers', label: 'Providers' },
   { href: '/memory-vector', label: 'Memory & Vector' },
   { href: '/rag', label: 'RAG' },
@@ -23,7 +24,7 @@ export function DocsNav() {
         fontSize: 14,
       }}
     >
-      <strong style={{ marginRight: '0.5rem' }}>Kortex v1.0</strong>
+      <strong style={{ marginRight: '0.5rem' }}>Kortex 0.1.0-alpha</strong>
       {nav.map((item) => (
         <Link key={item.href} href={item.href} style={{ color: '#a78bfa', textDecoration: 'none' }}>
           {item.label}

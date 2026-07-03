@@ -20,10 +20,13 @@ REDIS_URL=redis://localhost:6379`}</Code>
 
         <h2>Vector providers</h2>
         <Code>{`VECTOR_PROVIDER=pgvector | qdrant | none
+EMBEDDING_DIMENSIONS=1536
 QDRANT_URL=http://localhost:6333`}</Code>
         <ul>
           <li>
-            <strong>PgVectorProvider</strong> — embeddings in PostgreSQL with pgvector HNSW index
+            <strong>PgVectorProvider</strong> — embeddings in PostgreSQL with pgvector HNSW index. Column size is
+            configured via <code>EMBEDDING_DIMENSIONS</code> (default <code>1536</code>). Choose the correct dimension
+            before the <code>embeddings</code> table is created — it cannot be migrated safely afterward.
           </li>
           <li>
             <strong>QdrantVectorProvider</strong> — dedicated vector database

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import type { AIProvider, ChatResponse, MemoryEntry, MemoryProvider, StreamChunk, VectorProvider } from '@kortex/core';
+import type { AIProvider, ChatResponse, StreamChunk } from '@kortex/core';
 import { createKortexFromEnv } from './factory.js';
 
 function createMockProvider(overrides: Partial<AIProvider> = {}): AIProvider {

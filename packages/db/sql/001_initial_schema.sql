@@ -142,26 +142,10 @@ CREATE TRIGGER document_chunks_set_updated_at
 
 -- ---------------------------------------------------------------------------
 -- embeddings (pgvector)
+-- Created programmatically via ensureKortexSchema({ embeddingDimensions })
+-- so EMBEDDING_DIMENSIONS can be set before first bootstrap. Default: 1536.
+-- Do not add CREATE TABLE embeddings here — see packages/db/src/embeddings-schema.ts
 -- ---------------------------------------------------------------------------
-CREATE TABLE IF NOT EXISTS embeddings (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id TEXT,
-  session_id TEXT,
-  content TEXT NOT NULL,
-  metadata JSONB,
-  embedding vector(1536),
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-);
-
-CREATE INDEX IF NOT EXISTS embeddings_user_id_idx ON embeddings (user_id);
-CREATE INDEX IF NOT EXISTS embeddings_session_id_idx ON embeddings (session_id);
-CREATE INDEX IF NOT EXISTS embeddings_embedding_idx ON embeddings USING hnsw (embedding vector_cosine_ops);
-
-DROP TRIGGER IF EXISTS embeddings_set_updated_at ON embeddings;
-CREATE TRIGGER embeddings_set_updated_at
-  BEFORE UPDATE ON embeddings
-  FOR EACH ROW EXECUTE FUNCTION kortex_set_updated_at();
 
 -- ---------------------------------------------------------------------------
 -- tool_runs

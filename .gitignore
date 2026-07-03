@@ -13,6 +13,8 @@ out/
 .env
 .env.local
 .env.*.local
+.github/env.production.local
+apps/chatbot-demo/.env.vercel
 
 # IDE
 .idea/

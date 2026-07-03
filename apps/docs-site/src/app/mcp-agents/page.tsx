@@ -7,7 +7,8 @@ export default function McpAgentsPage() {
       <DocPage title="MCP Tools & Agents">
         <h2>MCP tools</h2>
         <p>Enable builtin tools with <code>MCP_ENABLED=true</code> or register MCP servers:</p>
-        <Code>{`import { MCPClient } from "@kortex/mcp";
+        <Code>{`import { createKortexFromEnv } from "@kortex/config";
+import { MCPClient } from "@kortex/mcp";
 
 const mcp = new MCPClient({ name: "my-server", url: "http://localhost:8080" });
 const kortex = await createKortexFromEnv({ tools: [mcp] });
@@ -15,7 +16,8 @@ const kortex = await createKortexFromEnv({ tools: [mcp] });
 const result = await kortex.runTool("tool_name", { arg: "value" });`}</Code>
 
         <h2>Agents</h2>
-        <Code>{`import { KortexAgentProvider } from "@kortex/agents";
+        <Code>{`import { createKortexFromEnv } from "@kortex/config";
+import { KortexAgentProvider } from "@kortex/agents";
 
 const kortex = await createKortexFromEnv();
 const agents = new KortexAgentProvider(kortex);

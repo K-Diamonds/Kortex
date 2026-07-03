@@ -12,6 +12,7 @@ describe('@kortex/config', () => {
     expect(config.openai.model).toBe('gpt-4o-mini');
     expect(config.memoryProvider).toBe('none');
     expect(config.vectorProvider).toBe('none');
+    expect(config.embeddingDimensions).toBe(1536);
   });
 
   it('uses AI_MODEL override', () => {
@@ -58,5 +59,25 @@ describe('@kortex/config', () => {
       VECTOR_PROVIDER: 'none',
     } as NodeJS.ProcessEnv);
     expect(() => validateConfig(config)).not.toThrow();
+  });
+
+  it('loads EMBEDDING_DIMENSIONS for pgvector', () => {
+    const config = loadConfig({
+      AI_PROVIDER: 'openai',
+      OPENAI_API_KEY: 'sk-test',
+      VECTOR_PROVIDER: 'pgvector',
+      DATABASE_URL: 'postgresql://localhost/kortex',
+      EMBEDDING_DIMENSIONS: '3072',
+    } as NodeJS.ProcessEnv);
+    expect(config.embeddingDimensions).toBe(3072);
+    expect(() => validateConfig(config)).not.toThrow();
+  });
+
+  it('rejects invalid EMBEDDING_DIMENSIONS', () => {
+    expect(() =>
+      loadConfig({
+        EMBEDDING_DIMENSIONS: 'bad',
+      } as NodeJS.ProcessEnv),
+    ).toThrow('EMBEDDING_DIMENSIONS');
   });
 });

@@ -1,13 +1,20 @@
 {
   "name": "@kortex/ollama",
-  "version": "0.1.0",
-  "description": "Ollama local LLM provider for Kortex",
+  "version": "0.1.0-alpha",
+  "description": "Ollama local LLM provider for Kortex. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
-  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -20,5 +27,9 @@
     "@kortex/core": "workspace:*",
     "@kortex/provider-shared": "workspace:*"
   },
-  "devDependencies": { "tsup": "^8.3.5", "typescript": "^5.7.2", "vitest": "^2.1.8" }
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
 }

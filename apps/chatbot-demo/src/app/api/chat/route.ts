@@ -9,31 +9,6 @@ interface ChatRequestBody {
   sessionId: string;
   useMemory?: boolean;
   useRag?: boolean;
-  aiProvider?: string;
-  aiModel?: string;
-}
-
-async function tryRunTool(
-  message: string,
-  kortex: Awaited<ReturnType<typeof getKortex>>,
-): Promise<string | null> {
-  const trimmed = message.trim();
-  if (!trimmed.startsWith('/tool ')) return null;
-
-  const rest = trimmed.slice(6).trim();
-  const space = rest.indexOf(' ');
-  const name = space === -1 ? rest : rest.slice(0, space);
-  const argsRaw = space === -1 ? '{}' : rest.slice(space + 1);
-
-  let args: Record<string, unknown> = {};
-  try {
-    args = JSON.parse(argsRaw) as Record<string, unknown>;
-  } catch {
-    throw new Error('Tool args must be valid JSON, e.g. /tool get_current_time {}');
-  }
-
-  const result = await kortex.runTool(name, args);
-  return `${name}: ${JSON.stringify(result)}`;
 }
 
 export async function POST(request: NextRequest) {
@@ -45,15 +20,7 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'Invalid JSON body' }, { status: 400 });
   }
 
-  const {
-    message,
-    userId,
-    sessionId,
-    useMemory = false,
-    useRag = false,
-    aiProvider,
-    aiModel,
-  } = body;
+  const { message, userId, sessionId, useMemory = false, useRag = false } = body;
 
   if (!message?.trim()) {
     return Response.json({ error: 'Message is required' }, { status: 400 });
@@ -62,44 +29,13 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'userId and sessionId are required' }, { status: 400 });
   }
 
-  const ai = await getKortex({ aiProvider, aiModel });
+  const kortex = await getKortex();
   const encoder = new TextEncoder();
 
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const toolResult = await tryRunTool(message, ai);
-        if (toolResult) {
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ type: 'tools', tools: toolResult })}\n\n`),
-          );
-          controller.enqueue(
-            encoder.encode(
-              `data: ${JSON.stringify({ type: 'chunk', content: `Tool result: ${toolResult}` })}\n\n`,
-            ),
-          );
-          controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: 'done' })}\n\n`));
-          controller.close();
-          return;
-        }
-
-        if (useRag) {
-          try {
-            const context = await ai.retrieveContext({
-              query: message.trim(),
-              userId,
-              sessionId,
-            });
-            const chunks = context.chunks.map((c) => c.content);
-            controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ type: 'context', context: chunks })}\n\n`),
-            );
-          } catch {
-            // vector optional
-          }
-        }
-
-        for await (const chunk of ai.stream({
+        for await (const chunk of kortex.stream({
           userId,
           sessionId,
           message: message.trim(),

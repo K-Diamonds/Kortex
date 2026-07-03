@@ -5,6 +5,11 @@ export default function GettingStartedPage() {
     <>
       <DocsNav />
       <DocPage title="Getting Started">
+        <p>
+          <strong>Kortex is currently in alpha / developer preview.</strong> It is not
+          production-ready yet. The most reliable stack today is OpenAI + Postgres memory + pgvector.
+        </p>
+
         <h2>Prerequisites</h2>
         <ul>
           <li>Node.js 20+</li>

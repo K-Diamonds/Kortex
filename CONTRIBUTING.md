@@ -14,7 +14,7 @@ pnpm build
 
 ## Project Structure
 
-- `packages/core` — AI Runtime, interfaces, and `fromEnv()` factory
+- `packages/core` — `KortexRuntime`, interfaces, and types (no env wiring)
 - `packages/providers/*` — LLM provider adapters (OpenAI, Anthropic, etc.)
 - `packages/memory/*` — Conversation and user memory backends
 - `packages/vector/*` — Vector storage and similarity search
@@ -61,6 +61,44 @@ pnpm lint
 - TypeScript strict mode
 - Prettier for formatting (`pnpm format`)
 - ESLint for linting (`pnpm lint`)
+
+## GitHub CI/CD
+
+CI mirrors the [CreatorOS](https://github.com/KOfferman/CreatorOS) pattern: workflow env from repository secrets/variables, `CI_LITE` for PR checks without private keys, and optional Vercel deploy on `main`.
+
+### PR / push checks (no secrets required)
+
+```bash
+pnpm install --frozen-lockfile
+pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test
+```
+
+### Sync secrets to GitHub
+
+1. Copy `.env.example` to `.env.local` and fill in values
+2. Optional: copy `.github/env.production.example` → `.github/env.production.local`
+3. Optional: copy `apps/chatbot-demo/.env.vercel.example` → `apps/chatbot-demo/.env.vercel`
+4. Run:
+
+```bash
+./scripts/sync-github-env.sh --repo YOUR_ORG/kortex
+```
+
+### Validate env locally
+
+```bash
+CI_LITE=true ./scripts/check-github-env.sh   # skips secret checks
+./scripts/check-github-env.sh                # full validation (set env vars first)
+```
+
+### Workflow jobs
+
+| Job | Purpose |
+|-----|---------|
+| `monorepo` | lint, typecheck, build, test |
+| `chatbot-demo` | Next.js demo build |
+| `docker-build` | Verify `apps/chatbot-demo/Dockerfile` |
+| `deploy-vercel` | Production deploy on `main` (requires Vercel secrets) |
 
 ## Questions?
 

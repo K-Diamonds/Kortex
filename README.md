@@ -1,12 +1,14 @@
 # Kortex
 
-**An open-source AI Runtime Framework for building production chatbots, agents, RAG pipelines, and memory-backed applications — with swappable LLM providers and zero vendor lock-in.**
+**An open-source AI Runtime Framework for building chatbots, agents, RAG pipelines, and memory-backed applications — with swappable LLM providers and zero vendor lock-in.**
+
+Kortex is currently in alpha / developer preview. APIs, adapters, and defaults may change before `1.0.0`. It is not production-ready yet — see [Production Readiness](#production-readiness) below.
 
 Kortex is not a chatbot. It is the runtime layer underneath one: a TypeScript framework that unifies chat, streaming, embeddings, conversation memory, vector retrieval, tools, and agents behind a single, testable API.
 
 You bring your own models, databases, and infrastructure. Kortex wires them together — in the cloud, on-prem, at the edge, or in your own product.
 
-> **Kortex v1.0** — Multi-LLM · Memory · Vector · RAG · MCP · Agents · Docker · Docs (`pnpm docs`)
+> **Kortex 0.1.0-alpha** — Multi-LLM · Memory · Vector · RAG · MCP · Agents · Docker · Docs (`pnpm docs`)
 
 ---
 
@@ -28,7 +30,36 @@ Kortex addresses this with a **provider-agnostic runtime** built on clean archit
 | Operational complexity | One `KortexRuntime` orchestrates chat, memory, and retrieval |
 | Testability | Mock any adapter; core logic stays pure |
 
-The framework is designed for teams who need to ship fast in development and retain architectural optionality in production.
+The framework is designed for teams who want a clear integration layer in development and the option to harden specific adapters as they mature toward production use.
+
+---
+
+## Production Readiness
+
+Kortex is currently in alpha / developer preview. Use it to evaluate architecture and build prototypes — not as a drop-in replacement for a battle-tested production stack without your own validation.
+
+| Area | Status |
+|------|--------|
+| **Core interfaces** (`@kortex/core`) | Stable — `AIProvider`, `MemoryProvider`, `VectorProvider`, and `KortexRuntime` APIs are the foundation we intend to keep compatible |
+| **OpenAI provider** (`@kortex/openai`) | **Stable** — chat, streaming, and embeddings; reference adapter |
+| **Beta LLM providers** (Anthropic, Gemini, OpenRouter, Ollama, LM Studio) | Implemented with less coverage than OpenAI; APIs may change |
+| **Experimental HTTP adapters** (OpenClaw, Hermes) | Generic OpenAI-compatible HTTP adapters — validate your endpoint before use |
+| **Postgres memory** (`@kortex/postgres`) | Working — session history and long-term memory with schema migrations |
+| **pgvector store** (`@kortex/pgvector`) | Working — cosine similarity retrieval with the bundled PostgreSQL schema |
+| **Redis memory** (`@kortex/redis`) | Experimental |
+| **Qdrant vectors** (`@kortex/qdrant`) | Experimental |
+| **RAG pipeline** (`@kortex/rag`) | Experimental — ingestion and retrieval work but APIs may evolve |
+| **Agents** (`@kortex/agents`) | Experimental — basic orchestration only |
+| **MCP** (`@kortex/mcp`) | Experimental — tool registration and execution are early |
+
+### Known limitations
+
+- **Not production-ready** — no stability guarantees, semver discipline, or long-term support until `1.0.0`.
+- **npm publish pending** — install from the monorepo or link workspace packages today.
+- **Provider parity** — only the OpenAI + Postgres + pgvector path is the reference “happy path”; other adapters may have gaps.
+- **Observability** — OpenTelemetry and production-grade tracing are not shipped yet.
+- **MCP & agents** — limited protocol coverage, no multi-agent coordination guarantees.
+- **Breaking changes** — expect interface and config changes during alpha; pin commits or versions if you depend on Kortex early.
 
 ---
 
@@ -67,26 +98,25 @@ The framework is designed for teams who need to ship fast in development and ret
 
 ## Bring Your Own LLM
 
-Kortex never hardcodes a model vendor. Set `AI_PROVIDER` to the backend you already run:
+Kortex never hardcodes a model vendor. Set `AI_PROVIDER` to the backend you already run.
 
-| Provider | `AI_PROVIDER` | Credentials / endpoint |
-|----------|---------------|------------------------|
-| OpenAI | `openai` | `OPENAI_API_KEY` |
-| Anthropic | `anthropic` | `ANTHROPIC_API_KEY` |
-| Google Gemini | `gemini` | `GEMINI_API_KEY` |
-| OpenRouter | `openrouter` | `OPENROUTER_API_KEY` |
-| Ollama | `ollama` | `OLLAMA_BASE_URL` |
-| LM Studio | `lmstudio` | `LMSTUDIO_BASE_URL` |
-| OpenClaw | `openclaw` | `OPENCLAW_BASE_URL`, optional `OPENCLAW_TOKEN` |
-| Hermes | `hermes` | `HERMES_BASE_URL`, optional `HERMES_TOKEN` |
+**Provider status**
+
+| Tier | Providers |
+|------|-----------|
+| **Stable** | OpenAI — reference adapter with the most test coverage |
+| **Beta** | Anthropic, Gemini, OpenRouter, Ollama, LM Studio — implemented and usable, less coverage than OpenAI |
+| **Experimental** | OpenClaw, Hermes — generic HTTP-compatible adapters; validate your server's OpenAI-style endpoints |
+
+See the full [Provider Matrix](#provider-matrix) for chat, streaming, embeddings, and required environment variables.
 
 ```env
-AI_PROVIDER=anthropic          # or any provider above
+AI_PROVIDER=anthropic          # stable: openai | beta: anthropic, gemini, openrouter, ollama, lmstudio | experimental: openclaw, hermes
 AI_MODEL=claude-3-5-sonnet-latest
 ANTHROPIC_API_KEY=...
 ```
 
-Hosted API providers use vendor keys. Self-hosted HTTP providers use a configurable `baseUrl` (and optional token) — point them at wherever your model server runs.
+Hosted API providers use vendor keys. Self-hosted providers use a configurable `baseUrl` (and optional token). **OpenClaw** and **Hermes** are experimental HTTP-compatible adapters — they assume OpenAI-style `/v1/chat/completions`, `/v1/embeddings`, and `/v1/models` routes on your server.
 
 **Two integration modes:**
 
@@ -193,6 +223,7 @@ QDRANT_API_KEY=
 # Embeddings: openai | local | provider
 EMBEDDING_PROVIDER=openai
 EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_DIMENSIONS=1536
 
 MCP_ENABLED=false
 KORTEX_DEBUG=false
@@ -204,7 +235,7 @@ KORTEX_DEBUG=false
 
 ## Reference Chatbot App
 
-The sample application in `apps/chatbot-demo` shows how to embed Kortex in a Next.js API route. It is a reference implementation — the framework packages are the product.
+The sample application in `apps/chatbot-demo` shows how to embed the `<Kortex />` UI and wire it to a Next.js API route. It is a reference implementation — the framework packages are the product.
 
 ```bash
 pnpm --filter @kortex/chatbot-demo dev
@@ -212,15 +243,98 @@ pnpm --filter @kortex/chatbot-demo dev
 
 The demo includes:
 
-- Streaming responses via `POST /api/chat`
-- `createKortexFromEnv()` server bootstrap
-- Provider selector (switch `AI_PROVIDER` per request)
-- Provider settings panel, RAG upload, retrieved context display
-- Optional memory and RAG toggles
+- `<Kortex />` from `@kortex/ui` (widget mode, dark theme)
+- `POST /api/kortex/chat` — backend route owned by your app
+- `createKortexFromEnv()` server bootstrap (secrets from `.env` only)
+- Memory, RAG, tools, and streaming toggles via UI props
 - `userId` and `sessionId` for scoped conversation state
-- Tool execution via `/tool <name> {}`
 
 Deploy it like any Next.js app, or copy the API route pattern into your own backend.
+
+---
+
+## Frontend UI (`@kortex/ui`)
+
+Import the universal web component as `Kortex` — works in React, Next.js, and other frameworks (Vue, Svelte, Angular, Astro via the optional Web Component entry).
+
+```tsx
+import { Kortex } from '@kortex/ui';
+
+<Kortex
+  apiEndpoint="/api/kortex/chat"
+  title="Ask AI"
+  subtitle="Powered by Kortex"
+  theme="dark"
+  variant="widget"
+  position="bottom-right"
+  memory
+  rag
+  tools
+  stream
+  markdown
+/>
+```
+
+**Security:** The UI only receives `apiEndpoint` and UI/runtime flags. Never pass API keys, database URLs, provider secrets, or model credentials to `<Kortex />`.
+
+### React Native (`@kortex/react-native`)
+
+```tsx
+import { Kortex } from '@kortex/react-native';
+
+<Kortex
+  apiEndpoint="https://mydomain.com/api/kortex/chat"
+  title="Ask AI"
+  theme="dark"
+  memory
+  rag
+/>
+```
+
+---
+
+## Backend route setup
+
+Your API route owns provider selection, model, API keys, memory, vector store, RAG, MCP, tools, and agents. Use `.env` on the server (highly recommended) or any secure configuration pattern — secrets must stay server-side. The frontend only calls `apiEndpoint`, which can be any route you control.
+
+### Next.js example
+
+```typescript
+import { createKortex } from '@kortex/config';
+
+const runtime = await createKortex({
+  provider: 'openai',
+  model: 'gpt-4o-mini',
+  apiKey: process.env.OPENAI_API_KEY,
+
+  memory: {
+    provider: 'postgres',
+    connectionString: process.env.DATABASE_URL,
+  },
+
+  vector: {
+    provider: 'pgvector',
+    connectionString: process.env.DATABASE_URL,
+    dimensions: Number(process.env.EMBEDDING_DIMENSIONS ?? 1536),
+  },
+});
+
+export async function POST(req: Request) {
+  const body = await req.json();
+
+  const response = await runtime.chat({
+    userId: body.userId,
+    sessionId: body.sessionId,
+    message: body.message,
+    useMemory: body.memory,
+    useRag: body.rag,
+  });
+
+  return Response.json({ content: response.content, model: response.model });
+}
+```
+
+For monorepo demos, `createKortexFromEnv()` reads `.env` and loads adapters dynamically. Run `pnpm docs` and open **Backend Route** for Web Component usage and a security checklist.
 
 ---
 
@@ -232,6 +346,7 @@ The repo includes `docker-compose.yml` for **local development and testing** of 
 docker compose up -d
 cp .env.example .env
 # Set DATABASE_URL, REDIS_URL, QDRANT_URL to your service endpoints
+# Set EMBEDDING_DIMENSIONS before first schema apply (default 1536)
 pnpm db:schema
 ```
 
@@ -253,15 +368,22 @@ Kortex stores conversation history, long-term memories, document chunks, and vec
 DATABASE_URL=postgresql://user:password@your-host:5432/kortex
 MEMORY_PROVIDER=postgres
 VECTOR_PROVIDER=pgvector
+EMBEDDING_DIMENSIONS=1536
 ```
+
+`EMBEDDING_DIMENSIONS` must match your embedding model output (default `1536` for `text-embedding-3-small`). **Set it before creating the `embeddings` table** — pgvector column dimensions cannot be migrated safely after vectors are stored.
 
 ### Apply schema
 
 ```bash
-pnpm db:migrate    # tracked migrations (recommended)
-# or
-pnpm db:schema     # idempotent SQL bootstrap (uses DATABASE_URL)
+# Reads EMBEDDING_DIMENSIONS from .env (default 1536)
+pnpm db:schema
+
+# or tracked Drizzle migrations (initial migration uses vector(1536))
+pnpm db:migrate
 ```
+
+For non-default dimensions, use `pnpm db:schema` on a fresh database. If the `embeddings` table already exists with the wrong size, drop it and re-ingest vectors, or align `EMBEDDING_DIMENSIONS` with the existing `vector(N)` column.
 
 ### Schema overview
 
@@ -273,7 +395,7 @@ pnpm db:schema     # idempotent SQL bootstrap (uses DATABASE_URL)
 | `memories` | Long-term memory entries |
 | `documents` | RAG source documents |
 | `document_chunks` | Chunked text for ingestion |
-| `embeddings` | `vector(1536)` with HNSW cosine index |
+| `embeddings` | `vector(EMBEDDING_DIMENSIONS)` — default `vector(1536)` with HNSW cosine index |
 | `tool_runs` | Tool execution audit log |
 | `agent_runs` | Agent execution audit log |
 
@@ -374,7 +496,9 @@ new KortexRuntime({
 | Package | Description |
 |---------|-------------|
 | [`@kortex/core`](./packages/core) | `KortexRuntime`, interfaces |
-| [`@kortex/config`](./packages/config) | `createKortexFromEnv()`, env validation |
+| [`@kortex/config`](./packages/config) | `createKortex()`, `createKortexFromEnv()`, env validation |
+| [`@kortex/ui`](./packages/ui) | Universal web UI — `<Kortex />` component |
+| [`@kortex/react-native`](./packages/react-native) | React Native `<Kortex />` component |
 | [`@kortex/errors`](./packages/errors) | `KortexError`, `ConfigError` |
 | [`@kortex/logger`](./packages/logger) | Structured JSON logging |
 | [`@kortex/openai`](./packages/providers/openai) | OpenAI adapter |
@@ -413,16 +537,24 @@ Packages publish under the `@kortex` npm scope. The monorepo uses **pnpm workspa
 
 ## Provider Matrix
 
-| Provider | Package | Auth | Notes |
-|----------|---------|------|-------|
-| OpenAI | `@kortex/openai` | API key | Chat + embeddings |
-| Anthropic | `@kortex/anthropic` | API key | Messages API |
-| Gemini | `@kortex/gemini` | API key | Google Generative Language API |
-| OpenRouter | `@kortex/openrouter` | API key | Multi-model gateway |
-| Ollama | `@kortex/ollama` | Optional | Self-hosted HTTP endpoint |
-| LM Studio | `@kortex/lmstudio` | Optional | Self-hosted OpenAI-compatible server |
-| OpenClaw | `@kortex/openclaw` | Optional token | Configurable HTTP adapter |
-| Hermes | `@kortex/hermes` | Optional token | Configurable HTTP adapter |
+| Provider | Package | Chat | Streaming | Embeddings | Status | Required env variables |
+|----------|---------|------|-----------|------------|--------|------------------------|
+| OpenAI | `@kortex/openai` | Yes | Yes | Yes | **Stable** | `AI_PROVIDER=openai`, `OPENAI_API_KEY`, `AI_MODEL` (optional) |
+| Anthropic | `@kortex/anthropic` | Yes | Yes | No | **Beta** | `AI_PROVIDER=anthropic`, `ANTHROPIC_API_KEY`, `AI_MODEL` (optional) |
+| Google Gemini | `@kortex/gemini` | Yes | Yes | Yes | **Beta** | `AI_PROVIDER=gemini`, `GEMINI_API_KEY`, `AI_MODEL` (optional) |
+| OpenRouter | `@kortex/openrouter` | Yes | Yes | Yes | **Beta** | `AI_PROVIDER=openrouter`, `OPENROUTER_API_KEY`, `AI_MODEL` (optional) |
+| Ollama | `@kortex/ollama` | Yes | Yes | Yes | **Beta** | `AI_PROVIDER=ollama`, `OLLAMA_BASE_URL`, `AI_MODEL` (optional) |
+| LM Studio | `@kortex/lmstudio` | Yes | Yes | Yes | **Beta** | `AI_PROVIDER=lmstudio`, `LMSTUDIO_BASE_URL`, `AI_MODEL` (optional) |
+| OpenClaw | `@kortex/openclaw` | Yes | Yes | Yes† | **Experimental** | `AI_PROVIDER=openclaw`, `OPENCLAW_BASE_URL`, `OPENCLAW_TOKEN` (optional), `AI_MODEL` (optional) |
+| Hermes | `@kortex/hermes` | Yes | Yes | Yes† | **Experimental** | `AI_PROVIDER=hermes`, `HERMES_BASE_URL`, `HERMES_TOKEN` (optional), `AI_MODEL` (optional) |
+
+† **Experimental HTTP-compatible adapters** — OpenClaw and Hermes use `@kortex/provider-shared` to call OpenAI-style REST endpoints on your server. Embeddings only work if your endpoint exposes `/v1/embeddings`. Validate chat, streaming, and embeddings against your deployment before relying on them.
+
+**Notes**
+
+- Anthropic has no native embeddings API in Kortex — set `EMBEDDING_PROVIDER=openai` (or another backend) for RAG.
+- Ollama and LM Studio are self-hosted; capabilities depend on the model server you run.
+- Beta providers are implemented but receive less test coverage than OpenAI.
 
 ---
 

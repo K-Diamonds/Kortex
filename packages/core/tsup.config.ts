@@ -6,5 +6,5 @@ export default defineConfig({
   dts: true,
   sourcemap: true,
   clean: true,
-  external: ['@kortex/config', '@kortex/errors', '@kortex/logger'],
+  external: ['@kortex/errors', '@kortex/logger'],
 });

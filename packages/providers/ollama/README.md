@@ -1,5 +1,21 @@
 # @kortex/ollama
 
-**Placeholder package** — not part of the Kortex MVP.
+**Status: Beta** — Ollama self-hosted LLM adapter for Kortex.
 
-The MVP ships `@kortex/openai` only. This folder reserves the package name for a future adapter.
+| Capability | Supported |
+|------------|-----------|
+| Chat | Yes |
+| Streaming | Yes |
+| Embeddings | Yes |
+
+Uses Ollama HTTP APIs with OpenAI-compatible chat paths.
+
+## Environment
+
+```env
+AI_PROVIDER=ollama
+OLLAMA_BASE_URL=http://localhost:11434
+AI_MODEL=llama3.2
+```
+
+Kortex is currently in alpha / developer preview.

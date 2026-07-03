@@ -59,11 +59,6 @@ export class KortexRuntime {
     this.logger = options.logger ?? createLogger({ name: 'kortex' });
   }
 
-  /** Bootstrap runtime from `.env` via `@kortex/config` (requires `@kortex/config` at runtime). */
-  static fromEnv(options?: import('./from-env.js').FromEnvOptions): Promise<KortexRuntime> {
-    return import('./from-env.js').then((m) => m.fromEnv(options));
-  }
-
   async chat(request: RuntimeChatRequest): Promise<RuntimeChatResponse> {
     const { messages, retrievedContext } = await this.buildConversation(request);
     const response = await this.complete({

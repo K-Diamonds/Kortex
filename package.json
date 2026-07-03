@@ -1,8 +1,8 @@
 {
   "name": "kortex",
-  "version": "1.0.0",
+  "version": "0.1.0-alpha",
   "private": true,
-  "description": "Open-source AI Runtime Framework for building scalable chatbot, agent, RAG, memory, and MCP applications with swappable LLM providers",
+  "description": "Open-source AI Runtime Framework for building chatbot, agent, RAG, memory, and MCP applications with swappable LLM providers. Kortex is currently in alpha / developer preview.",
   "license": "MIT",
   "scripts": {
     "build": "turbo run build",
@@ -17,7 +17,7 @@
     "db:migrate": "pnpm --filter @kortex/db db:migrate",
     "db:push": "pnpm --filter @kortex/db db:push",
     "db:studio": "pnpm --filter @kortex/db db:studio",
-    "db:schema": "psql \"${DATABASE_URL:-postgresql://postgres:postgres@localhost:5432/kortex}\" -f packages/db/sql/001_initial_schema.sql",
+    "db:schema": "pnpm --filter @kortex/db db:bootstrap",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
     "demo": "pnpm --filter @kortex/chatbot-demo dev",

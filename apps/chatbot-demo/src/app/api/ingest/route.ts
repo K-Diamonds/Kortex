@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
       return Response.json({ error: 'text is required' }, { status: 400 });
     }
 
-    const kortex = await getKortex({ aiProvider: body.aiProvider });
+    const kortex = await getKortex();
     const chunks = await kortex.ingest({
       documents: [{ content: body.text.trim(), metadata: { source: 'upload' } }],
       userId: body.userId,

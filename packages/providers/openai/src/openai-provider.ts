@@ -1,5 +1,4 @@
 import type { AIProvider, ChatOptions, ChatResponse, EmbedOptions, EmbedResponse, Message, StreamChunk } from '@kortex/core';
-import type { EmbeddingProvider, EmbedDocumentOptions } from '@kortex/core';
 
 export interface OpenAIProviderConfig {
   apiKey: string;

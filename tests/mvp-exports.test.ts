@@ -45,7 +45,7 @@ describe('MVP build order — package structure', () => {
     expect(existsSync(resolve(root, 'packages/db/sql/001_initial_schema.sql'))).toBe(true);
   });
 
-  it('bootstrap wires fromEnv (post-MVP)', () => {
+  it('bootstrap re-exports createKortexFromEnv (deprecated)', () => {
     expect(existsSync(resolve(root, 'packages/bootstrap/dist/index.js'))).toBe(true);
   });
 });

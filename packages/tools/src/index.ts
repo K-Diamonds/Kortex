@@ -1,4 +1,5 @@
 import type { ToolDefinition, ToolHandler, ToolProvider } from '@kortex/core';
+import { evaluateMathExpression } from './math-parser.js';
 
 export interface BuiltinTool {
   definition: ToolDefinition;
@@ -54,11 +55,8 @@ export const defaultTools: BuiltinTool[] = [
       },
     },
     handler: async (args) => {
-      const expr = String(args.expression ?? '0');
-      if (!/^[\d\s+\-*/().]+$/.test(expr)) {
-        throw new Error('Invalid expression');
-      }
-      return Function(`"use strict"; return (${expr})`)() as number;
+      const expr = String(args.expression ?? '');
+      return evaluateMathExpression(expr);
     },
   },
 ];
