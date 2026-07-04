@@ -15,8 +15,8 @@ The recommended sequence for building and shipping Kortex. Each step depends on 
 | 7 | Postgres memory | `packages/memory/postgres` — `PostgresMemoryProvider` | ✅ Done |
 | 8 | Pgvector provider | `packages/vector/pgvector` — `PgVectorProvider` | ✅ Done |
 | 9 | `createKortexFromEnv()` | `packages/config/src/factory.ts` — dynamic adapter loading | ✅ Done |
-| 10 | Chatbot API | `apps/chatbot-demo/src/app/api/chat/route.ts` | ✅ Done |
-| 11 | Chatbot UI | `apps/chatbot-demo` + `@kortex/ui` `<Kortex />` | ✅ Done |
+| 10 | Docs site API | `apps/docs-site/src/app/api/kortex/chat/route.ts` | ✅ Done |
+| 11 | Docs site UI | `apps/docs-site` + `@kortex/ui` `<Kortex />` | ✅ Done |
 | 12 | Tests | `packages/*/src/*.test.ts` | ✅ Done |
 | 13 | README | `README.md` | ✅ Done |
 | 14 | Add more providers later | `packages/providers/*` placeholders | 🔜 Post-MVP |
@@ -63,7 +63,7 @@ export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/kortex
 pnpm db:migrate
 
 # 10–11 — demo
-pnpm --filter @kortex/chatbot-demo dev
+pnpm --filter @kortex/docs-site dev
 # → http://localhost:3001
 ```
 
@@ -101,4 +101,4 @@ To add a provider:
 | 7 | `@kortex/postgres` |
 | 8 | `@kortex/pgvector` |
 | 7–8 schema | `@kortex/db` |
-| 10–11 | `@kortex/chatbot-demo` |
+| 10–11 | `@kortex/docs-site` |

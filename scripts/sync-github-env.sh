@@ -85,7 +85,7 @@ if override.exists():
 for key, value in manifest.get("productionDefaults", {}).items():
     env.setdefault(key, value)
 
-vercel_creds = parse_env_file(root / "apps/chatbot-demo/.env.vercel")
+vercel_creds = parse_env_file(root / "apps/docs-site/.env.vercel")
 for key in manifest.get("deploySecrets", []):
     if key in vercel_creds and vercel_creds[key]:
         env[key] = vercel_creds[key]

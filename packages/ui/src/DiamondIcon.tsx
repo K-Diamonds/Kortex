@@ -66,7 +66,7 @@ export function DiamondToggleButton({ open, size = 56 }: { open: boolean; size?:
         stroke="rgba(0,212,255,0.8)"
         strokeWidth="1.5"
       />
-      {open ? <RobotIcon color="#ffffff" /> : null}
+      <RobotIcon color="#ffffff" />
       <defs>
         <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#0d3a5c" />

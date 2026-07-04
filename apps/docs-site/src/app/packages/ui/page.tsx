@@ -1,95 +1,74 @@
 import Link from 'next/link';
 import { Code, DocPage, SecurityNote } from '@/components/Docs';
 
+const features = [
+  { label: 'Framework agnostic', sub: 'React, Vue, Svelte, HTML' },
+  { label: 'Cyber widget theme', sub: 'Diamond toggle + cyan UI' },
+  { label: 'className + style', sub: 'Full panel theming' },
+];
+
+const docLinks = [
+  { href: '/packages/ui/quickstart', label: 'Quick Start', desc: 'Online in 3 steps' },
+  { href: '/getting-started/installation-by-use-case', label: 'Install by use case', desc: 'UI, backend, Postgres' },
+  { href: '/getting-started/minimum-setup', label: 'Minimum setup', desc: 'OpenAI + widget only' },
+  { href: '/packages/ui/install', label: 'npm install', desc: 'Package managers' },
+  { href: '/packages/ui/web-component', label: 'Web Component', desc: 'Vue, Svelte, HTML' },
+  { href: '/packages/ui/props', label: 'Props reference', desc: 'Full KortexProps table' },
+  { href: '/packages/ui/demo', label: 'Live demo', desc: 'Widget on this site' },
+];
+
 export default function UiPackagePage() {
   return (
-      <DocPage title="@kortex/ui">
-        <SecurityNote />
-
-        <p>
-          <code>@kortex/ui</code> is the web chat UI package. It exports the React component{' '}
-          <code>Kortex</code> and a Web Component entry for non-React web frameworks. See also{' '}
-          <Link href="/packages/chat">Chat UI packages</Link>.
+    <DocPage title="">
+      <div className="docs-chat-intro">
+        <div className="docs-hero-badges">
+          <span className="docs-pill docs-pill-cyan">@kortex/ui</span>
+          <span className="docs-pill docs-pill-green">0.1.0-alpha</span>
+        </div>
+        <h1 className="docs-chat-intro-title">@kortex/ui</h1>
+        <p className="docs-chat-intro-tagline">CHAT WIDGET — DEPLOY ON ANY SITE</p>
+        <p className="docs-chat-intro-desc">
+          Drop-in <code>&lt;Kortex /&gt;</code> for React/Next.js, or <code>&lt;kortex-ui&gt;</code>{' '}
+          for other web stacks. Point at your backend <code>apiEndpoint</code> — secrets stay
+          server-side.
         </p>
+      </div>
 
-        <h2>Install</h2>
-        <Code>{`pnpm add @kortex/ui react react-dom`}</Code>
+      <SecurityNote />
 
-        <h2>Exports</h2>
-        <Code>{`export { Kortex } from "@kortex/ui";
+      <div className="docs-feature-grid">
+        {features.map((f) => (
+          <div key={f.label} className="docs-feature-card">
+            <strong>{f.label}</strong>
+            <span>{f.sub}</span>
+          </div>
+        ))}
+      </div>
+
+      <h2>Documentation</h2>
+      <div className="docs-doc-grid">
+        {docLinks.map((item) => (
+          <Link key={item.href} href={item.href} className="docs-doc-card">
+            <span className="docs-doc-card-label">{item.label}</span>
+            <span className="docs-doc-card-desc">{item.desc}</span>
+          </Link>
+        ))}
+      </div>
+
+      <h2>Exports</h2>
+      <Code>{`export { Kortex } from "@kortex/ui";
 export type { KortexProps, KortexResponse, KortexRequestBody } from "@kortex/ui";
 
-// Deprecated aliases (temporary):
-// KortexChatResponse, KortexChatRequestBody`}</Code>
+// Web Component: import { registerKortexElement } from "@kortex/ui/element";`}</Code>
 
-        <h2>React / Next.js</h2>
-        <p>
-          Import and render <code>&lt;Kortex /&gt;</code>. In Next.js App Router, use a client
-          component (the package ships with <code>&apos;use client&apos;</code>).
-        </p>
-        <Code>{`import { Kortex } from "@kortex/ui";
+      <h2>Minimal example</h2>
+      <Code>{`import { Kortex } from "@kortex/ui";
 
-<Kortex
-  apiEndpoint="/api/kortex/chat"
-  title="Ask AI"
-  theme="dark"
-  variant="widget"
-  memory
-  rag
-  tools
-  stream
-/>`}</Code>
-
-        <h2>Customize appearance</h2>
-        <p>
-          Pass <code>className</code> or <code>style</code> to customize the chat panel — colors,
-          width, height, fonts, borders, etc. These apply only to the chat UI, not your backend.
-        </p>
-        <Code>{`import { Kortex } from "@kortex/ui";
-
-<Kortex
-  apiEndpoint="/api/kortex/chat"
-  className="my-kortex-chat"
-  style={{
-    width: 420,
-    height: 560,
-    fontFamily: "Georgia, serif",
-    background: "rgba(10,10,30,0.98)",
-    border: "1px solid #6366f1",
-  }}
-/>`}</Code>
-
-        <h2>Vue / Svelte / Angular / Astro / HTML</h2>
-        <p>
-          There are no <code>@kortex/vue</code>, <code>@kortex/svelte</code>, or other framework
-          wrapper packages. Do <strong>not</strong> use <code>&lt;Kortex /&gt;</code> directly in
-          those frameworks unless you build your own React wrapper.
-        </p>
-        <p>
-          Instead, register the Web Component once and use <code>&lt;kortex-ui&gt;</code> in templates
-          or HTML:
-        </p>
-        <Code>{`import { registerKortexElement } from "@kortex/ui/element";
-
-registerKortexElement("kortex-ui");
-
-<kortex-ui
-  class="my-kortex-chat"
-  style="width: 420px; height: 560px; font-family: Georgia, serif"
-  api-endpoint="/api/kortex/chat"
-  title="Ask AI"
-  theme="dark"
-  memory
-  rag
-></kortex-ui>`}</Code>
-
-        <p>
-          See the full integration guide: <Link href="/packages/chat">Chat widget docs</Link> (
-          <Link href="/packages/chat/quickstart">Quick Start</Link>,{' '}
-          <Link href="/packages/chat/props">Props</Link>,{' '}
-          <Link href="/packages/chat/examples/react">Examples</Link>). Backend:{' '}
-          <Link href="/backend-route">Backend route setup</Link>.
-        </p>
-      </DocPage>
+<Kortex apiEndpoint="/api/kortex/chat" title="Kortex" theme="dark" variant="widget" />`}</Code>
+      <p>
+        <Link href="/getting-started/minimum-setup">Minimum working setup</Link> ·{' '}
+        <Link href="/backend-route">Backend routes</Link>
+      </p>
+    </DocPage>
   );
 }

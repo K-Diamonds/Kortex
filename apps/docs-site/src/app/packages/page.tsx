@@ -52,7 +52,7 @@ export default function PackagesPage() {
         <h2>Chat UI packages</h2>
         <p>
           Drop-in chat widgets that call your backend <code>apiEndpoint</code> only. Full integration
-          guide: <Link href="/packages/chat">Chat widget documentation</Link> (install, config, theming,
+          guide: <Link href="/packages/ui">@kortex/ui documentation</Link> (install, config, theming,
           props, framework examples). This docs site embeds <code>@kortex/ui</code> on every page.
         </p>
         <ul>
@@ -70,12 +70,8 @@ export default function PackagesPage() {
         <h2>Apps in this repo</h2>
         <ul>
           <li>
-            <code>apps/docs-site</code> — public documentation with embedded{' '}
-            <code>@kortex/ui</code> chat widget (deploy separately to Vercel/Netlify)
-          </li>
-          <li>
-            <code>apps/chatbot-demo</code> — reference Next.js app with <code>&lt;Kortex /&gt;</code>{' '}
-            and <code>POST /api/kortex/chat</code>
+            <code>apps/docs-site</code> — documentation + embedded <code>@kortex/ui</code> chat
+            widget (run with <code>pnpm docs</code> → <code>http://localhost:3001</code>)
           </li>
         </ul>
 

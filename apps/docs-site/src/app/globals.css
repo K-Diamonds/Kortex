@@ -573,6 +573,16 @@ code {
   white-space: nowrap;
 }
 
+.docs-use-case {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+}
+
+.docs-use-case:last-of-type {
+  border-bottom: none;
+}
+
 @media (max-width: 900px) {
   .docs-sidebar {
     display: none;

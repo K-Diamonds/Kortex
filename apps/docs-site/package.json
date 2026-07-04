@@ -3,9 +3,9 @@
   "version": "0.1.0-alpha",
   "description": "Kortex documentation site with embedded @kortex/ui chat widget",
   "scripts": {
-    "dev": "next dev --port 3002",
+    "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start --port 3002"
+    "start": "next start --port 3001"
   },
   "dependencies": {
     "@kortex/ui": "workspace:*",

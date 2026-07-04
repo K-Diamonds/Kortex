@@ -6,7 +6,7 @@ Kortex follows **clean architecture** with clear boundaries between domain logic
 
 ```
 ┌─────────────────────────────────────────────────┐
-│  Applications (chatbot-demo, your app)          │
+│  Applications (docs-site, your app)             │
 ├─────────────────────────────────────────────────┤
 │  Use Cases (agents, rag, mcp, tools)            │
 ├─────────────────────────────────────────────────┤

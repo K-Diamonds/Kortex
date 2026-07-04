@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Code, DocPage, SecurityNote } from '@/components/Docs';
 
 export default function GettingStartedPage() {
@@ -9,6 +10,21 @@ export default function GettingStartedPage() {
           <strong>Kortex is currently in alpha / developer preview.</strong> It is not
           production-ready yet. The most reliable stack today is OpenAI + Postgres memory + pgvector.
         </p>
+
+        <h2>Recommended paths</h2>
+        <ul>
+          <li>
+            <Link href="/getting-started/minimum-setup">Minimum working setup</Link> — OpenAI +{' '}
+            <code>&lt;Kortex /&gt;</code>, no database
+          </li>
+          <li>
+            <Link href="/getting-started/installation-by-use-case">Installation by use case</Link> — UI
+            only, backend, Postgres+pgvector, React Native
+          </li>
+          <li>
+            <Link href="/packages/ui/quickstart">@kortex/ui quick start</Link>
+          </li>
+        </ul>
 
         <h2>Prerequisites</h2>
         <ul>
@@ -24,10 +40,10 @@ cd kortex
 pnpm install
 cp .env.example .env`}</Code>
 
-        <h2>Chat-only (fastest path)</h2>
-        <p>Set <code>OPENAI_API_KEY</code> in <code>.env</code>, then:</p>
+        <h2>Run the docs site</h2>
         <Code>{`pnpm build
-pnpm --filter @kortex/example-basic-chat start`}</Code>
+pnpm docs
+# → http://localhost:3001`}</Code>
 
         <h2>Full stack with Docker</h2>
         <Code>{`docker compose up -d

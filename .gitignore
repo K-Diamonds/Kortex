@@ -14,7 +14,7 @@ out/
 .env.local
 .env.*.local
 .github/env.production.local
-apps/chatbot-demo/.env.vercel
+apps/docs-site/.env.vercel
 
 # IDE
 .idea/

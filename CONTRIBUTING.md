@@ -31,7 +31,7 @@ pnpm build
 - `packages/mcp` — Model Context Protocol client utilities
 - `packages/agents` — Reusable agent abstractions
 - `packages/tools` — Built-in tool providers
-- `apps/chatbot-demo` — Next.js reference application
+- `apps/docs-site` — Documentation site with embedded `@kortex/ui` chat widget
 
 ## Architecture Principles
 
@@ -86,7 +86,7 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test
 
 1. Copy `.env.example` to `.env.local` and fill in values
 2. Optional: copy `.github/env.production.example` → `.github/env.production.local`
-3. Optional: copy `apps/chatbot-demo/.env.vercel.example` → `apps/chatbot-demo/.env.vercel`
+3. Optional: copy `apps/docs-site/.env.vercel.example` → `apps/docs-site/.env.vercel` (when added)
 4. Run:
 
 ```bash
@@ -105,8 +105,8 @@ CI_LITE=true ./scripts/check-github-env.sh   # skips secret checks
 | Job | Purpose |
 |-----|---------|
 | `monorepo` | lint, typecheck, build, test |
-| `chatbot-demo` | Next.js demo build |
-| `docker-build` | Verify `apps/chatbot-demo/Dockerfile` |
+| `docs-site` | Next.js docs site build |
+| `docker-build` | Verify `apps/docs-site/Dockerfile` |
 | `deploy-vercel` | Production deploy on `main` (requires Vercel secrets) |
 
 ## Questions?

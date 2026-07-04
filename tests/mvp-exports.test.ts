@@ -14,7 +14,7 @@ const MVP_PACKAGES: Array<{ step: number; name: string; path: string; exportFile
   { step: 6, name: 'stream()', path: 'packages/core' },
   { step: 7, name: 'Postgres memory', path: 'packages/memory/postgres' },
   { step: 8, name: 'pgvector search', path: 'packages/vector/pgvector' },
-  { step: 9, name: 'Chatbot demo', path: 'apps/chatbot-demo', exportFile: 'src/app/api/chat/route.ts' },
+  { step: 9, name: 'Docs site', path: 'apps/docs-site', exportFile: 'src/app/api/kortex/chat/route.ts' },
   { step: 10, name: 'README', path: '.', exportFile: 'README.md' },
   { step: 11, name: 'Tests', path: 'packages/core/src', exportFile: 'runtime.test.ts' },
   { step: 12, name: 'Anthropic provider', path: 'packages/providers/anthropic' },

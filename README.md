@@ -180,8 +180,8 @@ pnpm add @kortex/core @kortex/config @kortex/anthropic @kortex/postgres @kortex/
 | `pnpm build` | Build all packages |
 | `pnpm test` | Run test suites |
 | `pnpm docker:up` | Start optional reference infrastructure (Docker) |
-| `pnpm demo` | Run the reference chatbot app |
-| `pnpm docs` | Run the documentation site |
+| `pnpm demo` | Run the documentation site (same as `pnpm docs`) |
+| `pnpm docs` | Run the documentation site → http://localhost:3001 |
 | `pnpm dev` | Start dev watchers |
 | `pnpm db:migrate` | Apply PostgreSQL migrations (Drizzle) |
 | `pnpm db:schema` | Bootstrap schema via raw SQL |
@@ -233,23 +233,16 @@ KORTEX_DEBUG=false
 
 ---
 
-## Reference Chatbot App
+## Documentation site
 
-The sample application in `apps/chatbot-demo` shows how to embed the `<Kortex />` UI and wire it to a Next.js API route. It is a reference implementation — the framework packages are the product.
+The public docs and live `@kortex/ui` chat widget live in `apps/docs-site`. This is the only app you need to run locally:
 
 ```bash
-pnpm --filter @kortex/chatbot-demo dev
+pnpm docs
+# → http://localhost:3001
 ```
 
-The demo includes:
-
-- `<Kortex />` from `@kortex/ui` (widget mode, dark theme)
-- `POST /api/kortex/chat` — backend route owned by your app
-- `createKortexFromEnv()` server bootstrap (secrets from `.env` only)
-- Memory, RAG, tools, and streaming toggles via UI props
-- `userId` and `sessionId` for scoped conversation state
-
-Deploy it like any Next.js app, or copy the API route pattern into your own backend.
+The site includes package docs, backend route examples, minimum setup guide, and an embedded chat widget with a mock docs API.
 
 ---
 

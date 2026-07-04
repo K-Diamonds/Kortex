@@ -20,7 +20,7 @@
     "db:schema": "pnpm --filter @kortex/db db:bootstrap",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "demo": "pnpm --filter @kortex/chatbot-demo dev",
+    "demo": "pnpm --filter @kortex/docs-site dev",
     "docs": "pnpm --filter @kortex/docs-site dev"
   },
   "devDependencies": {

@@ -9,7 +9,7 @@ export default function ReactNativePackagePage() {
         <p>
           <code>@kortex/react-native</code> is the native chat UI package. It exports{' '}
           <code>Kortex</code> with the same public props as <code>@kortex/ui</code> where possible.
-          See also <Link href="/packages/chat">Chat UI packages</Link>.
+          See also <Link href="/packages/ui">Chat UI packages</Link>.
         </p>
 
         <h2>Install</h2>

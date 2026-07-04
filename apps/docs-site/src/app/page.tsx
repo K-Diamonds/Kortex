@@ -24,11 +24,11 @@ export default function Home() {
           <Link href="/getting-started" className="docs-btn docs-btn-primary">
             Get started
           </Link>
-          <Link href="/packages/chat" className="docs-btn docs-btn-secondary">
-            Chat UI packages
+          <Link href="/getting-started/minimum-setup" className="docs-btn docs-btn-secondary">
+            Minimum setup
           </Link>
-          <Link href="/packages" className="docs-btn docs-btn-secondary">
-            All packages
+          <Link href="/packages/ui" className="docs-btn docs-btn-secondary">
+            @kortex/ui docs
           </Link>
         </div>
         <div className="docs-glow-divider" />
@@ -44,7 +44,7 @@ export default function Home() {
 />`}</Code>
         <p className="docs-muted">
           The floating chat widget on this page is <code>@kortex/ui</code> from the monorepo. See{' '}
-          <Link href="/packages/chat">Chat UI packages</Link> or ask the widget about backend setup
+          <Link href="/packages/ui">Chat UI packages</Link> or ask the widget about backend setup
           and package docs.
         </p>
       </div>
