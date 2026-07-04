@@ -16,8 +16,8 @@ export default function ProvidersPage() {
         AI_PROVIDER=openai | anthropic | gemini | openrouter | ollama | lmstudio | openclaw | hermes
       </Code>
 
-      <h2 style={{ marginTop: '2rem' }}>Status tiers</h2>
-      <ul style={{ color: '#d4d4d8' }}>
+      <h2>Status tiers</h2>
+      <ul>
         {(Object.keys(providerStatusGuide) as Array<keyof typeof providerStatusGuide>).map(
           (key) => (
             <li key={key} style={{ marginBottom: '0.75rem' }}>
@@ -29,42 +29,39 @@ export default function ProvidersPage() {
         )}
       </ul>
 
-      <h2 style={{ marginTop: '2rem' }}>Provider matrix</h2>
-      <div style={{ overflowX: 'auto' }}>
-        <table
-          style={{ width: '100%', borderCollapse: 'collapse', marginTop: '0.5rem', fontSize: 14 }}
-        >
+      <h2>Provider matrix</h2>
+      <div className="docs-table-wrap">
+        <table className="docs-table">
           <thead>
-            <tr style={{ borderBottom: '1px solid #3f3f46', textAlign: 'left' }}>
-              <th style={{ padding: '0.5rem' }}>Provider</th>
-              <th style={{ padding: '0.5rem' }}>Package</th>
-              <th style={{ padding: '0.5rem' }}>Chat</th>
-              <th style={{ padding: '0.5rem' }}>Streaming</th>
-              <th style={{ padding: '0.5rem' }}>Embeddings</th>
-              <th style={{ padding: '0.5rem' }}>Status</th>
-              <th style={{ padding: '0.5rem' }}>Required env variables</th>
+            <tr>
+              <th>Provider</th>
+              <th>Package</th>
+              <th>Chat</th>
+              <th>Streaming</th>
+              <th>Embeddings</th>
+              <th>Status</th>
+              <th>Required env variables</th>
             </tr>
           </thead>
           <tbody>
             {providers.map((p) => (
-              <tr
-                key={p.aiProvider}
-                style={{ borderBottom: '1px solid #27272a', verticalAlign: 'top' }}
-              >
-                <td style={{ padding: '0.5rem' }}>
+              <tr key={p.aiProvider}>
+                <td>
                   <code>{p.aiProvider}</code>
-                  <div style={{ color: '#a1a1aa', fontSize: 12, marginTop: 4 }}>{p.name}</div>
+                  <div className="docs-muted" style={{ fontSize: 12, marginTop: 4 }}>
+                    {p.name}
+                  </div>
                 </td>
-                <td style={{ padding: '0.5rem' }}>
+                <td>
                   <code>{p.package}</code>
                 </td>
-                <td style={{ padding: '0.5rem' }}>{capability(p.chat)}</td>
-                <td style={{ padding: '0.5rem' }}>{capability(p.streaming)}</td>
-                <td style={{ padding: '0.5rem' }}>{capability(p.embeddings)}</td>
-                <td style={{ padding: '0.5rem' }}>
+                <td>{capability(p.chat)}</td>
+                <td>{capability(p.streaming)}</td>
+                <td>{capability(p.embeddings)}</td>
+                <td>
                   <span style={{ color: statusColor(p.status), fontWeight: 600 }}>{p.status}</span>
                 </td>
-                <td style={{ padding: '0.5rem' }}>
+                <td>
                   {p.envVars.map((env) => (
                     <div key={env}>
                       <code>{env}</code>
@@ -77,8 +74,8 @@ export default function ProvidersPage() {
         </table>
       </div>
 
-      <h2 style={{ marginTop: '2rem' }}>Experimental HTTP adapters</h2>
-      <p style={{ color: '#d4d4d8' }}>
+      <h2>Experimental HTTP adapters</h2>
+      <p>
         <strong>OpenClaw</strong> and <strong>Hermes</strong> are experimental HTTP-compatible
         adapters built on <code>@kortex/provider-shared</code>. They target servers that expose
         OpenAI-style REST endpoints but are not tied to a specific vendor SDK. Capabilities depend
@@ -87,7 +84,7 @@ export default function ProvidersPage() {
       </p>
 
       <h3 style={{ marginTop: '1.25rem', fontSize: '1rem' }}>Provider notes</h3>
-      <ul style={{ color: '#d4d4d8' }}>
+      <ul>
         {providers
           .filter((p) => p.notes)
           .map((p) => (

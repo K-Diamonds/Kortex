@@ -7,32 +7,34 @@ export default function DockerPage() {
       <Code>docker compose up -d</Code>
 
       <h2>Services</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead>
-          <tr style={{ borderBottom: '1px solid #3f3f46', textAlign: 'left' }}>
-            <th style={{ padding: '0.5rem' }}>Service</th>
-            <th style={{ padding: '0.5rem' }}>Port</th>
-            <th style={{ padding: '0.5rem' }}>Purpose</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style={{ borderBottom: '1px solid #27272a' }}>
-            <td style={{ padding: '0.5rem' }}>postgres (pgvector)</td>
-            <td style={{ padding: '0.5rem' }}>5432</td>
-            <td style={{ padding: '0.5rem' }}>Memory + pgvector embeddings</td>
-          </tr>
-          <tr style={{ borderBottom: '1px solid #27272a' }}>
-            <td style={{ padding: '0.5rem' }}>redis</td>
-            <td style={{ padding: '0.5rem' }}>6379</td>
-            <td style={{ padding: '0.5rem' }}>Redis memory provider</td>
-          </tr>
-          <tr style={{ borderBottom: '1px solid #27272a' }}>
-            <td style={{ padding: '0.5rem' }}>qdrant</td>
-            <td style={{ padding: '0.5rem' }}>6333</td>
-            <td style={{ padding: '0.5rem' }}>Qdrant vector store</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="docs-table-wrap">
+        <table className="docs-table">
+          <thead>
+            <tr>
+              <th>Service</th>
+              <th>Port</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>postgres (pgvector)</td>
+              <td>5432</td>
+              <td>Memory + pgvector embeddings</td>
+            </tr>
+            <tr>
+              <td>redis</td>
+              <td>6379</td>
+              <td>Redis memory provider</td>
+            </tr>
+            <tr>
+              <td>qdrant</td>
+              <td>6333</td>
+              <td>Qdrant vector store</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
       <h2>Apply database schema</h2>
       <p style={{ color: '#d4d4d8' }}>
