@@ -181,6 +181,15 @@ jobs:
 
       - name: Smoke test docs page
         run: |
-          html=$(curl -fsS "${{ steps.deploy.outputs.url }}/")
-          echo "$html" | grep -q "KORTEX" || (echo "Expected docs-site shell (KORTEX), got old deployment" && exit 1)
+          url="https://kortex-chatbot-demo.vercel.app"
+          for attempt in 1 2 3 4 5; do
+            html=$(curl -fsS "$url/")
+            if echo "$html" | grep -q "KORTEX"; then
+              echo "Production alias OK (attempt $attempt)"
+              break
+            fi
+            echo "Waiting for production alias… attempt $attempt"
+            sleep 5
+          done
+          echo "$html" | grep -q "KORTEX" || (echo "Expected docs-site shell (KORTEX) at $url" && exit 1)
           echo "$html" | grep -q "Kortex Chat" && (echo "Old chatbot-demo page still deployed" && exit 1) || true
