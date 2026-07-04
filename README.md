@@ -177,17 +177,17 @@ pnpm add @kortex/core @kortex/config @kortex/anthropic @kortex/postgres @kortex/
 
 ### Monorepo scripts
 
-| Command           | Description                                        |
-| ----------------- | -------------------------------------------------- |
-| `pnpm build`      | Build all packages                                 |
-| `pnpm test`       | Run test suites                                    |
-| `pnpm docker:up`  | Start optional reference infrastructure (Docker)   |
+| Command           | Description                                                                  |
+| ----------------- | ---------------------------------------------------------------------------- |
+| `pnpm build`      | Build all packages                                                           |
+| `pnpm test`       | Run test suites                                                              |
+| `pnpm docker:up`  | Start optional reference infrastructure (Docker)                             |
 | `pnpm docs`       | Run the documentation site with embedded chat widget → http://localhost:3001 |
-| `pnpm demo`       | Alias for `pnpm docs`                                                          |
-| `pnpm dev`        | Start dev watchers                                 |
-| `pnpm db:migrate` | Apply PostgreSQL migrations (Drizzle)              |
-| `pnpm db:schema`  | Bootstrap schema via raw SQL                       |
-| `pnpm db:studio`  | Open Drizzle Studio                                |
+| `pnpm demo`       | Alias for `pnpm docs`                                                        |
+| `pnpm dev`        | Start dev watchers                                                           |
+| `pnpm db:migrate` | Apply PostgreSQL migrations (Drizzle)                                        |
+| `pnpm db:schema`  | Bootstrap schema via raw SQL                                                 |
+| `pnpm db:studio`  | Open Drizzle Studio                                                          |
 
 ---
 
