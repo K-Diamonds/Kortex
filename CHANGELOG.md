@@ -43,7 +43,7 @@ All notable changes to this project will be documented in this file.
 
 **Agents:** Agent definitions, system instructions, memory-enabled and tool-enabled execution
 
-**Chatbot demo:** Next.js reference app with streaming, provider selector, memory/RAG toggles
+**Docs site:** Next.js documentation app (`apps/docs-site`) with embedded live `@kortex/ui` chat widget
 
 **Docker:** Optional `docker compose` for Postgres+pgvector, Redis, Qdrant
 

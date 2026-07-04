@@ -87,7 +87,7 @@ const roadmap = [
   { done: true, label: 'RAG ingestion pipeline' },
   { done: true, label: 'MCP tool integration' },
   { done: true, label: 'Agent orchestration' },
-  { done: true, label: 'Reference chatbot demo and documentation site' },
+  { done: true, label: 'Documentation site with embedded live Kortex widget' },
   { done: false, label: 'npm publish for @kortex/* packages' },
   { done: false, label: 'OpenTelemetry observability' },
   { done: false, label: 'create-kortex-app CLI scaffolding' },
@@ -133,12 +133,12 @@ export function LandingPage() {
             Kortex is the AI Infrastructure Runtime for TypeScript.
           </p>
 
-          <h1>Build production-ready AI backends, not just AI calls.</h1>
+          <h1>Build production-grade AI backends with a clean runtime architecture.</h1>
 
           <p className="landing-hero-sub">
-            Unify chat, streaming, memory, vector search, RAG, tools, and agents behind one testable
-            runtime. Bring your own LLM, database, and vector store — swap adapters without
-            rewriting your app.
+            Not just AI calls — unify chat, streaming, memory, vector search, RAG, tools, and agents
+            behind one testable runtime. Bring your own LLM, database, and vector store — swap
+            adapters without rewriting your app.
           </p>
 
           <div className="landing-hero-actions">
@@ -261,14 +261,16 @@ export function LandingPage() {
           <div className="landing-section-header">
             <h2>Quickstart</h2>
             <p>
-              Clone the monorepo, configure your stack, and run the reference chatbot in minutes.
+              Clone the monorepo, configure your stack, and run the docs site with the embedded live
+              widget in minutes.
             </p>
           </div>
           <div className="landing-grid landing-grid-2">
             <div className="landing-code-block">
               <pre>{`# Install & build
-git clone https://github.com/kortex-ai/kortex.git
-cd kortex
+git clone https://github.com/KOfferman/Kortex.git
+cd Kortex
+corepack enable
 pnpm install
 cp .env.example .env
 pnpm build
@@ -277,8 +279,8 @@ pnpm build
 docker compose up -d
 pnpm db:schema
 
-# Run demo
-pnpm demo`}</pre>
+# Docs site + live widget
+pnpm docs    # → http://localhost:3001`}</pre>
             </div>
             <div className="landing-code-block">
               <pre>{`# .env — pick your stack
@@ -412,7 +414,7 @@ EMBEDDING_PROVIDER=openai`}</pre>
           <p>
             Kortex · MIT License · <Link href="/getting-started">Documentation</Link>
             {' · '}
-            <a href="https://github.com/kortex-ai/kortex" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/KOfferman/Kortex" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
           </p>

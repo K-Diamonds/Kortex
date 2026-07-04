@@ -5,7 +5,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Kortex — AI Infrastructure Runtime for TypeScript',
   description:
-    'Build production-ready AI backends with multi-LLM support, memory, vector search, RAG, MCP tools, and agents.',
+    'Build production-grade AI backends with a clean runtime architecture — multi-LLM, memory, vector search, RAG, MCP tools, and agents.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

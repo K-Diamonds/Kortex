@@ -58,8 +58,8 @@ export default function InstallationByUseCasePage() {
       <h2>Monorepo development</h2>
       <Code>{`git clone https://github.com/KOfferman/Kortex.git
 cd Kortex
+corepack enable
 pnpm install
-cp .env.example .env
 pnpm build
 pnpm docs    # → http://localhost:3001`}</Code>
     </DocPage>

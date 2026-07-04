@@ -13,7 +13,8 @@ export default function PublishingPage() {
       <p>
         Run every step from the repo root before publishing any <code>@kortex/*</code> package:
       </p>
-      <Code>{`pnpm install
+      <Code>{`corepack enable
+pnpm install
 pnpm build
 pnpm test
 pnpm lint`}</Code>

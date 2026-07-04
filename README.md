@@ -8,7 +8,7 @@ Kortex is not a chatbot. It is the runtime layer underneath one: a TypeScript fr
 
 You bring your own models, databases, and infrastructure. Kortex wires them together — in the cloud, on-prem, at the edge, or in your own product.
 
-> **Kortex 0.1.0-alpha** — Multi-LLM · Memory · Vector · RAG · MCP · Agents · Docker · Docs (`pnpm docs`)
+> **Kortex 0.1.0-alpha** — Multi-LLM · Memory · Vector · RAG · MCP · Agents · Docker · [Docs](https://kortex-chatbot-demo.vercel.app) (`pnpm docs`)
 
 ---
 
@@ -159,12 +159,14 @@ Kortex does not provision databases, host models, or manage API keys. You connec
 **Requirements:** Node.js 20+, pnpm 9+
 
 ```bash
-git clone https://github.com/kortex-ai/kortex.git
-cd kortex
+corepack enable
+git clone https://github.com/KOfferman/Kortex.git
+cd Kortex
 pnpm install
 cp .env.example .env
 pnpm build
 pnpm test
+pnpm lint
 ```
 
 Install only the packages you need in your app:
@@ -180,8 +182,8 @@ pnpm add @kortex/core @kortex/config @kortex/anthropic @kortex/postgres @kortex/
 | `pnpm build`      | Build all packages                                 |
 | `pnpm test`       | Run test suites                                    |
 | `pnpm docker:up`  | Start optional reference infrastructure (Docker)   |
-| `pnpm demo`       | Run the documentation site (same as `pnpm docs`)   |
-| `pnpm docs`       | Run the documentation site → http://localhost:3001 |
+| `pnpm docs`       | Run the documentation site with embedded chat widget → http://localhost:3001 |
+| `pnpm demo`       | Alias for `pnpm docs`                                                          |
 | `pnpm dev`        | Start dev watchers                                 |
 | `pnpm db:migrate` | Apply PostgreSQL migrations (Drizzle)              |
 | `pnpm db:schema`  | Bootstrap schema via raw SQL                       |
@@ -235,7 +237,12 @@ KORTEX_DEBUG=false
 
 ## Documentation site
 
-The public docs and live `@kortex/ui` chat widget live in `apps/docs-site`. This is the only app you need to run locally:
+The public docs and live `@kortex/ui` chat widget live in `apps/docs-site`:
+
+- **Live:** [https://kortex-chatbot-demo.vercel.app](https://kortex-chatbot-demo.vercel.app)
+- **Local:** `pnpm docs` → http://localhost:3001
+
+This is the only app you need to run locally:
 
 ```bash
 pnpm docs
@@ -586,12 +593,14 @@ We welcome contributions that align with Kortex architecture principles:
 4. **Tests** — unit tests for core; integration examples for adapters
 
 ```bash
-git clone https://github.com/kortex-ai/kortex.git
-cd kortex
+corepack enable
+git clone https://github.com/KOfferman/Kortex.git
+cd Kortex
 pnpm install
 cp .env.example .env
 pnpm build
 pnpm test
+pnpm lint
 ```
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines on adding providers, running tests, and opening pull requests.

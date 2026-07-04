@@ -5,11 +5,14 @@ Thank you for your interest in contributing to Kortex! This document outlines ho
 ## Development Setup
 
 ```bash
-git clone https://github.com/kortex-ai/kortex.git
-cd kortex
+corepack enable
+git clone https://github.com/KOfferman/Kortex.git
+cd Kortex
 pnpm install
 cp .env.example .env
 pnpm build
+pnpm test
+pnpm lint
 ```
 
 ## Project Structure

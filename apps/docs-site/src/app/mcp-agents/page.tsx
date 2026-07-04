@@ -32,7 +32,7 @@ const agent = await agents.createAgent({
 const response = await kortex.runAgent(agent.id, "Explain pgvector");`}</Code>
 
       <h2>Demo tool command</h2>
-      <p>In the chatbot demo, send:</p>
+      <p>In the docs site chat widget (embedded in every page), send:</p>
       <Code>/tool get_current_time {}</Code>
     </DocPage>
   );

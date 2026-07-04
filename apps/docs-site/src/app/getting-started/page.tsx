@@ -35,8 +35,9 @@ export default function GettingStartedPage() {
       </ul>
 
       <h2>Install</h2>
-      <Code>{`git clone https://github.com/your-org/kortex.git
-cd kortex
+      <Code>{`git clone https://github.com/KOfferman/Kortex.git
+cd Kortex
+corepack enable
 pnpm install
 cp .env.example .env`}</Code>
 
@@ -52,7 +53,7 @@ pnpm docs
 # MEMORY_PROVIDER=postgres
 # VECTOR_PROVIDER=pgvector
 pnpm db:schema
-pnpm demo`}</Code>
+pnpm docs`}</Code>
 
       <h2>Bootstrap from environment</h2>
       <Code>{`import { createKortexFromEnv } from "@kortex/config";
