@@ -1,10 +1,10 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage, SecurityNote } from '@/components/Docs';
 
 export default function GettingStartedPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="Getting Started">
+        <SecurityNote />
+
         <p>
           <strong>Kortex is currently in alpha / developer preview.</strong> It is not
           production-ready yet. The most reliable stack today is OpenAI + Postgres memory + pgvector.
@@ -63,6 +63,5 @@ const kortex = new KortexRuntime({
   vector: new PgVectorProvider({ databaseUrl: process.env.DATABASE_URL! }),
 });`}</Code>
       </DocPage>
-    </>
   );
 }

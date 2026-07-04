@@ -11,6 +11,24 @@ function readBooleanAttribute(element: HTMLElement, name: string): boolean | und
   return true;
 }
 
+function readInlineStyle(element: HTMLElement): KortexProps['style'] {
+  const raw = element.getAttribute('style');
+  if (!raw?.trim()) return undefined;
+
+  const style: Record<string, string> = {};
+  for (const part of raw.split(';')) {
+    const colon = part.indexOf(':');
+    if (colon === -1) continue;
+    const key = part.slice(0, colon).trim();
+    const value = part.slice(colon + 1).trim();
+    if (!key || !value) continue;
+    const camelKey = key.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase());
+    style[camelKey] = value;
+  }
+
+  return Object.keys(style).length > 0 ? style : undefined;
+}
+
 function attrsToProps(element: HTMLElement): KortexProps {
   const apiEndpoint = element.getAttribute('api-endpoint');
   if (!apiEndpoint) {
@@ -42,6 +60,8 @@ function attrsToProps(element: HTMLElement): KortexProps {
     showModel: readBooleanAttribute(element, 'show-model'),
     showTimestamp: readBooleanAttribute(element, 'show-timestamp'),
     showTyping: readBooleanAttribute(element, 'show-typing'),
+    className: element.className || undefined,
+    style: readInlineStyle(element),
   };
 }
 

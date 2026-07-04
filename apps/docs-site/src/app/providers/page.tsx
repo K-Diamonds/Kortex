@@ -1,4 +1,4 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 import { providerStatusGuide, providers, statusColor } from '@/data/providers';
 
 function capability(value: boolean): string {
@@ -7,8 +7,6 @@ function capability(value: boolean): string {
 
 export default function ProvidersPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="AI Providers">
         <p>
           Set <code>AI_PROVIDER</code> in <code>.env</code> to switch providers without code changes.
@@ -89,6 +87,5 @@ export default function ProvidersPage() {
             ))}
         </ul>
       </DocPage>
-    </>
   );
 }

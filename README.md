@@ -255,7 +255,7 @@ Deploy it like any Next.js app, or copy the API route pattern into your own back
 
 ## Frontend UI (`@kortex/ui`)
 
-Import the universal web component as `Kortex` — works in React, Next.js, and other frameworks (Vue, Svelte, Angular, Astro via the optional Web Component entry).
+**React / Next.js** — import the React component:
 
 ```tsx
 import { Kortex } from '@kortex/ui';
@@ -275,7 +275,24 @@ import { Kortex } from '@kortex/ui';
 />
 ```
 
-**Security:** The UI only receives `apiEndpoint` and UI/runtime flags. Never pass API keys, database URLs, provider secrets, or model credentials to `<Kortex />`.
+**Vue / Svelte / Angular / Astro / HTML** — no `@kortex/vue` wrapper packages. Use `registerKortexElement` from `@kortex/ui/element` and `<kortex-ui>` (not `<Kortex />`):
+
+```html
+<script type="module">
+  import { registerKortexElement } from '@kortex/ui/element';
+  registerKortexElement('kortex-ui');
+</script>
+
+<kortex-ui
+  api-endpoint="/api/kortex/chat"
+  title="Ask AI"
+  theme="dark"
+  memory
+  rag
+></kortex-ui>
+```
+
+**Security:** The UI only receives `apiEndpoint` and UI/runtime flags. Never pass API keys, database URLs, provider secrets, or model credentials to `<Kortex />` or `<kortex-ui>`.
 
 ### React Native (`@kortex/react-native`)
 
@@ -295,7 +312,7 @@ import { Kortex } from '@kortex/react-native';
 
 ## Backend route setup
 
-Your API route owns provider selection, model, API keys, memory, vector store, RAG, MCP, tools, and agents. Use `.env` on the server (highly recommended) or any secure configuration pattern — secrets must stay server-side. The frontend only calls `apiEndpoint`, which can be any route you control.
+Your API route owns provider, model, API keys, memory, vector store, RAG, MCP, tools, and agents. Use `.env` on the server (highly recommended but not required) or any secure configuration pattern — secrets must stay server-side. The frontend only calls `apiEndpoint`, which can be any route you control.
 
 ### Next.js example
 
@@ -497,7 +514,7 @@ new KortexRuntime({
 |---------|-------------|
 | [`@kortex/core`](./packages/core) | `KortexRuntime`, interfaces |
 | [`@kortex/config`](./packages/config) | `createKortex()`, `createKortexFromEnv()`, env validation |
-| [`@kortex/ui`](./packages/ui) | Universal web UI — `<Kortex />` component |
+| [`@kortex/ui`](./packages/ui) | Web UI — `<Kortex />` (React/Next.js), `<kortex-ui>` (Web Component) |
 | [`@kortex/react-native`](./packages/react-native) | React Native `<Kortex />` component |
 | [`@kortex/errors`](./packages/errors) | `KortexError`, `ConfigError` |
 | [`@kortex/logger`](./packages/logger) | Structured JSON logging |

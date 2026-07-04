@@ -16,6 +16,7 @@
     "@kortex/pgvector": "workspace:*",
     "@kortex/postgres": "workspace:*",
     "@kortex/ui": "workspace:*",
+    "dotenv": "^16.4.7",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"

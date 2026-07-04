@@ -1,19 +1,19 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import Link from 'next/link';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function BackendRoutePage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="Backend route setup">
         <p>
-          The <code>&lt;Kortex /&gt;</code> UI component only receives <code>apiEndpoint</code> and
-          UI/runtime flags. It must <strong>never</strong> receive API keys, database URLs, provider
-          secrets, tokens, or model credentials.
+          UI components only receive <code>apiEndpoint</code> and UI/runtime flags. They must{' '}
+          <strong>never</strong> receive API keys, database URLs, provider secrets, tokens, or model
+          credentials.
         </p>
         <p>
-          Your backend route owns provider selection, model choice, memory, vector search, RAG, MCP,
-          tools, and agents. Use <code>.env</code> on the server (highly recommended) or any secure
-          configuration pattern you prefer — secrets must stay server-side.
+          Your backend route owns provider selection, model, API keys/tokens, memory, database,
+          vector store, RAG, MCP, tools, and agents. Use <code>.env</code> on the server (highly
+          recommended but not required) or any secure configuration pattern — secrets must stay
+          server-side.
         </p>
 
         <h2>Next.js route example</h2>
@@ -63,7 +63,8 @@ export async function POST(req: Request) {
 
 const runtime = await createKortexFromEnv();`}</Code>
 
-        <h2>Frontend usage</h2>
+        <h2>Frontend usage by platform</h2>
+        <p><strong>React / Next.js</strong> — use the React component:</p>
         <Code>{`import { Kortex } from "@kortex/ui";
 
 <Kortex
@@ -78,7 +79,20 @@ const runtime = await createKortexFromEnv();`}</Code>
   tools
 />`}</Code>
 
-        <h2>React Native</h2>
+        <p><strong>Vue / Svelte / Angular / Astro / HTML</strong> — no wrapper packages; use the Web Component (not <code>&lt;Kortex /&gt;</code>):</p>
+        <Code>{`import { registerKortexElement } from "@kortex/ui/element";
+
+registerKortexElement("kortex-ui");
+
+<kortex-ui
+  api-endpoint="/api/kortex/chat"
+  title="Ask AI"
+  theme="dark"
+  memory
+  rag
+></kortex-ui>`}</Code>
+
+        <p><strong>React Native</strong> — use the native component:</p>
         <Code>{`import { Kortex } from "@kortex/react-native";
 
 <Kortex
@@ -89,29 +103,11 @@ const runtime = await createKortexFromEnv();`}</Code>
   rag
 />`}</Code>
 
-        <h2>Web Components (Vue, Svelte, Angular, Astro)</h2>
-        <Code>{`import { registerKortexElement } from "@kortex/ui/element";
-
-registerKortexElement("kortex-ui");
-
-// <kortex-ui
-//   api-endpoint="/api/kortex/chat"
-//   title="Ask AI"
-//   theme="dark"
-//   memory
-//   rag
-// ></kortex-ui>`}</Code>
-
-        <h2>Security checklist</h2>
-        <ul>
-          <li>Store secrets in server environment variables (`.env` locally, platform secrets in production)</li>
-          <li>Never import provider SDKs or secrets in frontend bundles</li>
-          <li>
-            <code>apiEndpoint</code> can be any route you control — same origin or remote API
-          </li>
-          <li>Validate <code>userId</code> and <code>sessionId</code> on the server for production apps</li>
-        </ul>
+        <p>
+          See <Link href="/packages/ui">@kortex/ui</Link>,{' '}
+          <Link href="/packages/react-native">@kortex/react-native</Link>, and{' '}
+          <Link href="/security">Security</Link> for details.
+        </p>
       </DocPage>
-    </>
   );
 }

@@ -1,9 +1,7 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function RagPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="RAG Pipeline">
         <p>
           Kortex RAG covers document ingestion, text chunking, embedding generation, vector storage,
@@ -34,6 +32,5 @@ const chunks = await rag.retrieve({ query: "topic", limit: 5 });`}</Code>
 });
 // response.retrievedContext contains matched chunks`}</Code>
       </DocPage>
-    </>
   );
 }

@@ -4,12 +4,15 @@ export interface KortexMessage {
   timestamp?: string;
 }
 
-export interface KortexChatResponse {
+export interface KortexResponse {
   content: string;
   model?: string;
   context?: string[];
   tools?: string;
 }
+
+/** @deprecated Use `KortexResponse` */
+export type KortexChatResponse = KortexResponse;
 
 /**
  * Public UI props for `<Kortex />`.
@@ -54,13 +57,18 @@ export interface KortexProps {
   metadata?: Record<string, unknown>;
 
   onMessage?: (message: KortexMessage) => void;
-  onResponse?: (response: KortexChatResponse) => void;
+  onResponse?: (response: KortexResponse) => void;
   onError?: (error: Error) => void;
   onOpen?: () => void;
   onClose?: () => void;
+
+  /** Applied to the chat panel root — use for custom colors, width, height, fonts, etc. */
+  className?: string;
+  /** Applied to the chat panel root — merged over default widget styles. */
+  style?: KortexStyle;
 }
 
-export interface KortexChatRequestBody {
+export interface KortexRequestBody {
   message: string;
   userId: string;
   sessionId: string;
@@ -71,3 +79,9 @@ export interface KortexChatRequestBody {
   stream?: boolean;
   metadata?: Record<string, unknown>;
 }
+
+/** @deprecated Use `KortexRequestBody` */
+export type KortexChatRequestBody = KortexRequestBody;
+
+/** Inline styles applied to the chat panel (width, height, colors, fonts, etc.). */
+export type KortexStyle = import('react').CSSProperties;

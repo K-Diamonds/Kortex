@@ -1,13 +1,14 @@
 {
   "name": "@kortex/docs-site",
   "version": "0.1.0-alpha",
-  "private": true,
+  "description": "Kortex documentation site with embedded @kortex/ui chat widget",
   "scripts": {
     "dev": "next dev --port 3002",
     "build": "next build",
     "start": "next start --port 3002"
   },
   "dependencies": {
+    "@kortex/ui": "workspace:*",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"

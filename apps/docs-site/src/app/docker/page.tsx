@@ -1,9 +1,7 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function DockerPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="Docker Setup">
         <p>Start all local infrastructure with one command:</p>
         <Code>docker compose up -d</Code>
@@ -46,6 +44,5 @@ export default function DockerPage() {
 EMBEDDING_DIMENSIONS=1536
 pnpm db:schema`}</Code>
       </DocPage>
-    </>
   );
 }

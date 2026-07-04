@@ -1,9 +1,7 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function ConfigurationPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="Environment Configuration">
         <Code>{`# AI
 AI_PROVIDER=openai
@@ -41,6 +39,5 @@ KORTEX_DEBUG=true`}</Code>
           See <code>.env.example</code> in the repository root for the canonical template.
         </p>
       </DocPage>
-    </>
   );
 }

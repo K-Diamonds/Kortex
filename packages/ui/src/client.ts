@@ -1,4 +1,4 @@
-import type { KortexChatRequestBody, KortexChatResponse, KortexMessage } from './types.js';
+import type { KortexRequestBody, KortexResponse, KortexMessage } from './types.js';
 
 export function createSessionIds(userId?: string, sessionId?: string) {
   const uid =
@@ -34,8 +34,8 @@ export async function sendKortexMessage(options: {
   metadata?: Record<string, unknown>;
   onChunk?: (content: string) => void;
   onContext?: (context: string[]) => void;
-}): Promise<KortexChatResponse> {
-  const body: KortexChatRequestBody = {
+}): Promise<KortexResponse> {
+  const body: KortexRequestBody = {
     message: options.message,
     userId: options.userId,
     sessionId: options.sessionId,
@@ -63,7 +63,7 @@ export async function sendKortexMessage(options: {
     return readSseStream(response.body, options.onChunk, options.onContext);
   }
 
-  const data = (await response.json()) as KortexChatResponse;
+  const data = (await response.json()) as KortexResponse;
   return data;
 }
 
@@ -71,7 +71,7 @@ async function readSseStream(
   body: ReadableStream<Uint8Array>,
   onChunk?: (content: string) => void,
   onContext?: (context: string[]) => void,
-): Promise<KortexChatResponse> {
+): Promise<KortexResponse> {
   const reader = body.getReader();
   const decoder = new TextDecoder();
   let buffer = '';

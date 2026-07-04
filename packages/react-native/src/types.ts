@@ -1,15 +1,20 @@
+import type { StyleProp, ViewStyle } from 'react-native';
+
 export interface KortexMessage {
   role: 'user' | 'assistant';
   content: string;
   timestamp?: string;
 }
 
-export interface KortexChatResponse {
+export interface KortexResponse {
   content: string;
   model?: string;
   context?: string[];
   tools?: string;
 }
+
+/** @deprecated Use `KortexResponse` */
+export type KortexChatResponse = KortexResponse;
 
 /**
  * Public UI props for `<Kortex />`.
@@ -54,8 +59,11 @@ export interface KortexProps {
   metadata?: Record<string, unknown>;
 
   onMessage?: (message: KortexMessage) => void;
-  onResponse?: (response: KortexChatResponse) => void;
+  onResponse?: (response: KortexResponse) => void;
   onError?: (error: Error) => void;
   onOpen?: () => void;
   onClose?: () => void;
+
+  /** Applied to the chat container — use for custom colors, width, height, fonts, etc. */
+  style?: StyleProp<ViewStyle>;
 }

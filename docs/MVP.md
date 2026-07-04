@@ -16,7 +16,7 @@ The recommended sequence for building and shipping Kortex. Each step depends on 
 | 8 | Pgvector provider | `packages/vector/pgvector` — `PgVectorProvider` | ✅ Done |
 | 9 | `createKortexFromEnv()` | `packages/config/src/factory.ts` — dynamic adapter loading | ✅ Done |
 | 10 | Chatbot API | `apps/chatbot-demo/src/app/api/chat/route.ts` | ✅ Done |
-| 11 | Chatbot UI | `apps/chatbot-demo/src/components/ChatApp.tsx` | ✅ Done |
+| 11 | Chatbot UI | `apps/chatbot-demo` + `@kortex/ui` `<Kortex />` | ✅ Done |
 | 12 | Tests | `packages/*/src/*.test.ts` | ✅ Done |
 | 13 | README | `README.md` | ✅ Done |
 | 14 | Add more providers later | `packages/providers/*` placeholders | 🔜 Post-MVP |

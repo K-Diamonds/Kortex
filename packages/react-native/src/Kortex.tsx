@@ -5,12 +5,12 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
 import type { KortexMessage, KortexProps } from './types.js';
+import { createWidgetStyles } from './widget-styles.js';
 
 interface StreamEvent {
   type: string;
@@ -94,10 +94,10 @@ async function sendMessage(options: {
 
 export function Kortex({
   apiEndpoint,
-  title = 'Ask AI',
+  title = 'Kortex',
   subtitle,
-  welcomeMessage = 'How can I help you today?',
-  placeholder = 'Message…',
+  welcomeMessage = 'Welcome to Kortex. Ask me anything.',
+  placeholder = 'Interface with Kortex...',
   theme = 'dark',
   userId: userIdProp,
   sessionId: sessionIdProp,
@@ -111,6 +111,7 @@ export function Kortex({
   onMessage,
   onResponse,
   onError,
+  style: styleProp,
 }: KortexProps) {
   const { userId, sessionId } = useMemo(
     () => createSessionIds(userIdProp, sessionIdProp),
@@ -122,7 +123,8 @@ export function Kortex({
   const assistantIndex = useRef<number | null>(null);
 
   const isDark = theme !== 'light';
-  const styles = useMemo(() => createStyles(isDark), [isDark]);
+  const styles = useMemo(() => createWidgetStyles(isDark), [isDark]);
+  const statusLine = subtitle ?? 'Neural link active';
 
   const submit = useCallback(async () => {
     const text = input.trim();
@@ -139,7 +141,7 @@ export function Kortex({
     setLoading(true);
     setMessages((prev) => {
       assistantIndex.current = prev.length + 1;
-      return [...prev, { role: 'assistant', content: showTyping ? '…' : '' }];
+      return [...prev, { role: 'assistant', content: showTyping ? '' : '' }];
     });
 
     try {
@@ -162,7 +164,7 @@ export function Kortex({
             if (!current) return copy;
             copy[index] = {
               ...current,
-              content: (current.content === '…' ? '' : current.content) + chunk,
+              content: (current.content === '' ? '' : current.content) + chunk,
             };
             return copy;
           });
@@ -204,12 +206,20 @@ export function Kortex({
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      style={[styles.container, styleProp]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <View style={styles.header}>
-        <Text style={styles.title}>{title}</Text>
-        {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+        <View style={styles.headerRow}>
+          <View style={styles.diamond} />
+          <View>
+            <Text style={styles.title}>{title}</Text>
+            <View style={styles.statusRow}>
+              <View style={styles.statusDot} />
+              <Text style={styles.statusText}>{statusLine}</Text>
+            </View>
+          </View>
+        </View>
       </View>
 
       <FlatList
@@ -217,82 +227,42 @@ export function Kortex({
         keyExtractor={(_, index) => String(index)}
         ListEmptyComponent={<Text style={styles.welcome}>{welcomeMessage}</Text>}
         renderItem={({ item }) => (
-          <View style={[styles.bubble, item.role === 'user' ? styles.userBubble : styles.assistantBubble]}>
-            <Text style={styles.bubbleText}>{item.content}</Text>
+          <View style={[styles.messageRow, item.role === 'user' && styles.messageRowUser]}>
+            <View style={styles.avatar}>
+              <Text style={styles.avatarText}>{item.role === 'user' ? 'U' : '◆'}</Text>
+            </View>
+            <View style={[styles.bubble, item.role === 'user' ? styles.userBubble : styles.assistantBubble]}>
+              <Text style={styles.bubbleText}>
+                {item.content || (loading && item.role === 'assistant' ? '…' : item.content)}
+              </Text>
+            </View>
           </View>
         )}
         contentContainerStyle={styles.list}
       />
 
       <View style={styles.composer}>
-        <TextInput
-          style={styles.input}
-          value={input}
-          onChangeText={setInput}
-          placeholder={placeholder}
-          placeholderTextColor={isDark ? '#71717a' : '#a1a1aa'}
-          editable={!loading}
-        />
-        <Pressable style={styles.sendButton} onPress={() => void submit()} disabled={loading || !input.trim()}>
-          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.sendLabel}>Send</Text>}
-        </Pressable>
+        <View style={styles.inputRow}>
+          <TextInput
+            style={styles.input}
+            value={input}
+            onChangeText={setInput}
+            placeholder={placeholder}
+            placeholderTextColor={isDark ? 'rgba(255,255,255,0.35)' : 'rgba(12,26,36,0.35)'}
+            editable={!loading}
+          />
+          <Pressable style={styles.sendButton} onPress={() => void submit()} disabled={loading || !input.trim()}>
+            {loading ? (
+              <ActivityIndicator color="#00d4ff" size="small" />
+            ) : (
+              <Text style={styles.sendLabel}>→</Text>
+            )}
+          </Pressable>
+        </View>
+        <Text style={styles.footer}>
+          Powered by <Text style={styles.footerBrand}>Kortex</Text>
+        </Text>
       </View>
     </KeyboardAvoidingView>
   );
-}
-
-function createStyles(dark: boolean) {
-  return StyleSheet.create({
-    container: { flex: 1, backgroundColor: dark ? '#09090b' : '#ffffff' },
-    header: {
-      paddingHorizontal: 16,
-      paddingVertical: 14,
-      borderBottomWidth: 1,
-      borderBottomColor: dark ? '#27272a' : '#e4e4e7',
-    },
-    title: { color: dark ? '#fafafa' : '#18181b', fontSize: 18, fontWeight: '600' },
-    subtitle: { color: dark ? '#a1a1aa' : '#71717a', fontSize: 13, marginTop: 2 },
-    list: { padding: 16, gap: 10 },
-    welcome: { color: dark ? '#a1a1aa' : '#71717a', fontSize: 15, lineHeight: 22 },
-    bubble: {
-      borderRadius: 14,
-      padding: 12,
-      marginBottom: 8,
-      maxWidth: '85%',
-    },
-    userBubble: {
-      alignSelf: 'flex-end',
-      backgroundColor: dark ? '#3b0764' : '#ede9fe',
-    },
-    assistantBubble: {
-      alignSelf: 'flex-start',
-      backgroundColor: dark ? '#18181b' : '#f4f4f5',
-    },
-    bubbleText: { color: dark ? '#fafafa' : '#18181b', fontSize: 15, lineHeight: 21 },
-    composer: {
-      flexDirection: 'row',
-      gap: 8,
-      padding: 12,
-      borderTopWidth: 1,
-      borderTopColor: dark ? '#27272a' : '#e4e4e7',
-    },
-    input: {
-      flex: 1,
-      borderWidth: 1,
-      borderColor: dark ? '#27272a' : '#e4e4e7',
-      borderRadius: 12,
-      paddingHorizontal: 12,
-      paddingVertical: 10,
-      color: dark ? '#fafafa' : '#18181b',
-      backgroundColor: dark ? '#111113' : '#ffffff',
-    },
-    sendButton: {
-      backgroundColor: '#8b5cf6',
-      borderRadius: 12,
-      paddingHorizontal: 16,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    sendLabel: { color: '#ffffff', fontWeight: '600' },
-  });
 }

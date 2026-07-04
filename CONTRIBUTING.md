@@ -14,7 +14,16 @@ pnpm build
 
 ## Project Structure
 
+**Public product surface**
+
+- `apps/docs-site` — public documentation website (deploy separately to Vercel/Netlify)
 - `packages/core` — `KortexRuntime`, interfaces, and types (no env wiring)
+- `packages/config` — `createKortex()`, `createKortexFromEnv()`, env validation
+- `packages/ui` — web UI (`<Kortex />` for React/Next.js, `<kortex-ui>` Web Component)
+- `packages/react-native` — native UI (`<Kortex />`)
+
+**Adapters and tooling**
+
 - `packages/providers/*` — LLM provider adapters (OpenAI, Anthropic, etc.)
 - `packages/memory/*` — Conversation and user memory backends
 - `packages/vector/*` — Vector storage and similarity search
@@ -22,7 +31,7 @@ pnpm build
 - `packages/mcp` — Model Context Protocol client utilities
 - `packages/agents` — Reusable agent abstractions
 - `packages/tools` — Built-in tool providers
-- `apps/chatbot-demo` — Next.js demo application
+- `apps/chatbot-demo` — Next.js reference application
 
 ## Architecture Principles
 

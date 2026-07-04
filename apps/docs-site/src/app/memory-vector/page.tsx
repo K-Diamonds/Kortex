@@ -1,9 +1,7 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function MemoryVectorPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="Memory & Vector Search">
         <h2>Memory providers</h2>
         <Code>{`MEMORY_PROVIDER=postgres | redis | none
@@ -38,6 +36,5 @@ QDRANT_URL=http://localhost:6333`}</Code>
 const memories = await kortex.searchMemory({ userId: "u1", query: "TypeScript" });
 const ctx = await kortex.retrieveContext({ query: "docs", userId: "u1" });`}</Code>
       </DocPage>
-    </>
   );
 }

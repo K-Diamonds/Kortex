@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 export const runtime = 'nodejs';
 
-interface KortexChatBody {
+interface KortexRequestBody {
   message: string;
   userId: string;
   sessionId: string;
@@ -39,10 +39,10 @@ async function tryRunTool(
 }
 
 export async function POST(request: NextRequest) {
-  let body: KortexChatBody;
+  let body: KortexRequestBody;
 
   try {
-    body = (await request.json()) as KortexChatBody;
+    body = (await request.json()) as KortexRequestBody;
   } catch {
     return Response.json({ error: 'Invalid JSON body' }, { status: 400 });
   }

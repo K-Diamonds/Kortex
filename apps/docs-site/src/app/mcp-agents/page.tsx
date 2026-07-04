@@ -1,9 +1,7 @@
-import { Code, DocPage, DocsNav } from '@/components/Docs';
+import { Code, DocPage } from '@/components/Docs';
 
 export default function McpAgentsPage() {
   return (
-    <>
-      <DocsNav />
       <DocPage title="MCP Tools & Agents">
         <h2>MCP tools</h2>
         <p>Enable builtin tools with <code>MCP_ENABLED=true</code> or register MCP servers:</p>
@@ -35,6 +33,5 @@ const response = await kortex.runAgent(agent.id, "Explain pgvector");`}</Code>
         <p>In the chatbot demo, send:</p>
         <Code>/tool get_current_time {}</Code>
       </DocPage>
-    </>
   );
 }
