@@ -542,7 +542,7 @@ export function Kortex({
           transition: 'transform 0.2s, filter 0.2s',
         }}
       >
-        <DiamondToggleButton open={open} />
+        <DiamondToggleButton />
       </button>
     </div>
   );

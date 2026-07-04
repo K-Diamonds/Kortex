@@ -55,7 +55,7 @@ function RobotIcon({ color = '#ffffff' }: { color?: string }) {
   );
 }
 
-export function DiamondToggleButton({ open, size = 56 }: { open: boolean; size?: number }) {
+export function DiamondToggleButton({ size = 56 }: { size?: number }) {
   const gradId = `btnGrad-${size}`;
   return (
     <svg
