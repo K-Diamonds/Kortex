@@ -1,0 +1,10 @@
+node_modules
+.pnpm-store
+.next
+dist
+.turbo
+coverage
+.git
+Documentation website with chat.zip
+**/*.log
+**/.DS_Store

@@ -87,9 +87,6 @@ jobs:
     name: Docs site build
     runs-on: ubuntu-latest
     needs: [monorepo]
-    defaults:
-      run:
-        working-directory: apps/docs-site
     steps:
       - uses: actions/checkout@v4
 
@@ -104,10 +101,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-        working-directory: ${{ github.workspace }}
 
       - name: Build docs site
-        run: pnpm build
+        run: pnpm --filter @kortex/ui build && pnpm --filter @kortex/docs-site build
 
   docker-build:
     name: Docker build
@@ -145,9 +141,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Validate GitHub env for deploy
-        run: bash scripts/check-github-env.sh
-
       - name: Validate Vercel deploy secrets
         run: |
           test -n "$VERCEL_ORG_ID" || (echo "Missing VERCEL_ORG_ID — run scripts/sync-github-env.sh" && exit 1)
@@ -168,17 +161,26 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
+      - name: Point Vercel project at docs-site
+        run: |
+          curl -fsS -X PATCH \
+            "https://api.vercel.com/v9/projects/${VERCEL_PROJECT_ID}?teamId=${VERCEL_ORG_ID}" \
+            -H "Authorization: Bearer ${{ secrets.VERCEL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"rootDirectory":"apps/docs-site","framework":"nextjs"}'
+
       - name: Pull Vercel project settings
-        working-directory: apps/docs-site
         run: vercel pull --yes --environment=production --token="${{ secrets.VERCEL_TOKEN }}"
 
       - name: Deploy to production
         id: deploy
-        working-directory: apps/docs-site
         run: |
           url=$(vercel deploy --prod --token="${{ secrets.VERCEL_TOKEN }}")
           echo "url=$url" >> "$GITHUB_OUTPUT"
           echo "Deployed to $url"
 
       - name: Smoke test docs page
-        run: curl -fsS "${{ steps.deploy.outputs.url }}/" | head -c 200
+        run: |
+          html=$(curl -fsS "${{ steps.deploy.outputs.url }}/")
+          echo "$html" | grep -q "KORTEX" || (echo "Expected docs-site shell (KORTEX), got old deployment" && exit 1)
+          echo "$html" | grep -q "Kortex Chat" && (echo "Old chatbot-demo page still deployed" && exit 1) || true

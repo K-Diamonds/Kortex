@@ -37,4 +37,5 @@ coverage/
 
 # Misc
 *.local
+.vercel/
 Documentation website with chat.zip
