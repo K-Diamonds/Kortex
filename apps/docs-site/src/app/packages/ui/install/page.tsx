@@ -5,7 +5,9 @@ export default function ChatInstallPage() {
   return (
     <DocPage title="Installation">
       <SecurityNote />
-      <p>Install <code>@kortex/ui</code> via any Node package manager.</p>
+      <p>
+        Install <code>@kortex/ui</code> via any Node package manager.
+      </p>
 
       <h2>npm</h2>
       <Code>{`npm install @kortex/ui react react-dom`}</Code>

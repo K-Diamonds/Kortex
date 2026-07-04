@@ -17,7 +17,8 @@ const useCases = [
   {
     title: 'Backend + Postgres memory + pgvector',
     desc: 'Conversation memory and vector search for RAG. Add UI when ready.',
-    install: 'pnpm add @kortex/core @kortex/config @kortex/openai @kortex/postgres @kortex/pgvector',
+    install:
+      'pnpm add @kortex/core @kortex/config @kortex/openai @kortex/postgres @kortex/pgvector',
     next: '/memory-vector',
   },
   {

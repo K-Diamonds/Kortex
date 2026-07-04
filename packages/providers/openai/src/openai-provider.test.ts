@@ -17,7 +17,9 @@ describe('OpenAIProvider', () => {
   });
 
   it('validateConfig() checks the models endpoint', async () => {
-    globalThis.fetch = vi.fn(async () => new Response(JSON.stringify({ data: [] }), { status: 200 }));
+    globalThis.fetch = vi.fn(
+      async () => new Response(JSON.stringify({ data: [] }), { status: 200 }),
+    );
 
     const provider = new OpenAIProvider({ apiKey: 'sk-test' });
     await expect(provider.validateConfig()).resolves.toBeUndefined();
@@ -31,14 +33,17 @@ describe('OpenAIProvider', () => {
   });
 
   it('chat() returns assistant content', async () => {
-    globalThis.fetch = vi.fn(async () =>
-      new Response(
-        JSON.stringify({
-          model: 'gpt-4o-mini',
-          choices: [{ message: { role: 'assistant', content: 'Hi there' }, finish_reason: 'stop' }],
-        }),
-        { status: 200 },
-      ),
+    globalThis.fetch = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            model: 'gpt-4o-mini',
+            choices: [
+              { message: { role: 'assistant', content: 'Hi there' }, finish_reason: 'stop' },
+            ],
+          }),
+          { status: 200 },
+        ),
     );
 
     const provider = new OpenAIProvider({ apiKey: 'sk-test' });

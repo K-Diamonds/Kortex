@@ -3,10 +3,10 @@
 **Status: Beta** — OpenRouter multi-model gateway adapter for Kortex.
 
 | Capability | Supported |
-|------------|-----------|
-| Chat | Yes |
-| Streaming | Yes |
-| Embeddings | Yes |
+| ---------- | --------- |
+| Chat       | Yes       |
+| Streaming  | Yes       |
+| Embeddings | Yes       |
 
 ## Environment
 

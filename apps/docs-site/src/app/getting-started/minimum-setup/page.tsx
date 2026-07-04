@@ -80,7 +80,9 @@ export function Chat() {
 
       <h2>What you are not setting up (yet)</h2>
       <ul>
-        <li>No <code>DATABASE_URL</code> — memory stays off</li>
+        <li>
+          No <code>DATABASE_URL</code> — memory stays off
+        </li>
         <li>No pgvector / Qdrant — RAG stays off</li>
         <li>No MCP, tools, or agents — add later via backend config</li>
       </ul>

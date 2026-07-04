@@ -32,8 +32,6 @@ export function createOpenAIProvider(options: CreateOpenAIProviderOptions = {}):
   });
 }
 
-export function createOpenAIProviderFromConfig(
-  config: OpenAIProviderConfig,
-): OpenAIProvider {
+export function createOpenAIProviderFromConfig(config: OpenAIProviderConfig): OpenAIProvider {
   return new OpenAIProvider(config);
 }

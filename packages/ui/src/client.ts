@@ -4,8 +4,7 @@ export function createSessionIds(userId?: string, sessionId?: string) {
   const uid =
     userId ??
     (typeof localStorage !== 'undefined'
-      ? (localStorage.getItem('kortex:userId') ??
-        `user_${Math.random().toString(36).slice(2, 10)}`)
+      ? (localStorage.getItem('kortex:userId') ?? `user_${Math.random().toString(36).slice(2, 10)}`)
       : `user_${Date.now()}`);
   const sid =
     sessionId ??

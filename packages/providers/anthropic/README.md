@@ -2,10 +2,10 @@
 
 **Status: Beta** — Anthropic Messages API adapter for Kortex.
 
-| Capability | Supported |
-|------------|-----------|
-| Chat | Yes |
-| Streaming | Yes |
+| Capability | Supported                                    |
+| ---------- | -------------------------------------------- |
+| Chat       | Yes                                          |
+| Streaming  | Yes                                          |
 | Embeddings | No — use `EMBEDDING_PROVIDER=openai` for RAG |
 
 ## Environment

@@ -89,9 +89,7 @@ export class PostgresMemoryProvider implements MemoryProvider {
   async saveMemory(entry: Omit<MemoryEntry, 'id' | 'createdAt'>): Promise<MemoryEntry> {
     await this.ensureSchema();
     const userId = await this.resolveUserId(entry.userId);
-    const sessionId = entry.sessionId
-      ? await this.resolveSessionId(userId, entry.sessionId)
-      : null;
+    const sessionId = entry.sessionId ? await this.resolveSessionId(userId, entry.sessionId) : null;
 
     const id = randomUUID();
     const createdAt = new Date();
@@ -99,14 +97,7 @@ export class PostgresMemoryProvider implements MemoryProvider {
     await this.pool.query(
       `INSERT INTO memories (id, user_id, session_id, content, metadata, created_at, updated_at)
        VALUES ($1, $2, $3, $4, $5, $6, $6)`,
-      [
-        id,
-        userId,
-        sessionId,
-        entry.content,
-        JSON.stringify(entry.metadata ?? {}),
-        createdAt,
-      ],
+      [id, userId, sessionId, entry.content, JSON.stringify(entry.metadata ?? {}), createdAt],
     );
 
     return { ...entry, id, createdAt };

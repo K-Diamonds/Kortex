@@ -8,8 +8,9 @@ export default function ChatPropsPage() {
     <DocPage title="Props reference">
       <SecurityNote />
       <p>
-        Public props for <code>&lt;Kortex /&gt;</code> from <code>@kortex/ui</code>. Types are exported
-        as <code>KortexProps</code>, <code>KortexMessage</code>, and <code>KortexResponse</code>.
+        Public props for <code>&lt;Kortex /&gt;</code> from <code>@kortex/ui</code>. Types are
+        exported as <code>KortexProps</code>, <code>KortexMessage</code>, and{' '}
+        <code>KortexResponse</code>.
       </p>
 
       <Code>{`import type { KortexProps, KortexResponse, KortexRequestBody } from "@kortex/ui";`}</Code>

@@ -10,17 +10,17 @@ All notable changes to this project will be documented in this file.
 
 ### Production readiness (alpha)
 
-| Area | Status |
-|------|--------|
-| Core interfaces | Stable foundation |
-| OpenAI provider | Working |
-| Postgres memory | Working |
-| pgvector vector store | Working |
-| Other LLM providers | Experimental |
-| Redis / Qdrant | Experimental |
-| RAG | Experimental |
-| Agents | Experimental |
-| MCP | Experimental |
+| Area                  | Status            |
+| --------------------- | ----------------- |
+| Core interfaces       | Stable foundation |
+| OpenAI provider       | Working           |
+| Postgres memory       | Working           |
+| pgvector vector store | Working           |
+| Other LLM providers   | Experimental      |
+| Redis / Qdrant        | Experimental      |
+| RAG                   | Experimental      |
+| Agents                | Experimental      |
+| MCP                   | Experimental      |
 
 ### Known limitations
 
@@ -52,9 +52,9 @@ All notable changes to this project will be documented in this file.
 ### API
 
 ```typescript
-import { createKortexFromEnv } from "@kortex/config";
+import { createKortexFromEnv } from '@kortex/config';
 const kortex = await createKortexFromEnv();
-await kortex.chat({ userId, sessionId, message: "Hello" });
+await kortex.chat({ userId, sessionId, message: 'Hello' });
 ```
 
 ## [0.1.0] - 2026-07-02

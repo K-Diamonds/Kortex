@@ -19,7 +19,8 @@ export default function ChatThemingPage() {
 
       <h2>Inline styles</h2>
       <p>
-        Styles apply to the chat panel root (<code>data-kortex-panel</code>), not the diamond toggle.
+        Styles apply to the chat panel root (<code>data-kortex-panel</code>), not the diamond
+        toggle.
       </p>
       <Code>{`<Kortex
   apiEndpoint="/api/kortex/chat"

@@ -9,7 +9,11 @@ const features = [
 
 const docLinks = [
   { href: '/packages/ui/quickstart', label: 'Quick Start', desc: 'Online in 3 steps' },
-  { href: '/getting-started/installation-by-use-case', label: 'Install by use case', desc: 'UI, backend, Postgres' },
+  {
+    href: '/getting-started/installation-by-use-case',
+    label: 'Install by use case',
+    desc: 'UI, backend, Postgres',
+  },
   { href: '/getting-started/minimum-setup', label: 'Minimum setup', desc: 'OpenAI + widget only' },
   { href: '/packages/ui/install', label: 'npm install', desc: 'Package managers' },
   { href: '/packages/ui/web-component', label: 'Web Component', desc: 'Vue, Svelte, HTML' },

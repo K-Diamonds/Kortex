@@ -4,17 +4,17 @@ PostgreSQL schema and migrations for Kortex.
 
 ## Tables
 
-| Table | Purpose |
-|-------|---------|
-| `users` | App users (`external_id` for string IDs from clients) |
-| `sessions` | Conversation sessions per user |
-| `messages` | Chat message history |
-| `memories` | Long-term memory entries |
-| `documents` | RAG source documents |
-| `document_chunks` | Chunked document text |
-| `embeddings` | pgvector embeddings for similarity search |
-| `tool_runs` | MCP / tool execution audit log |
-| `agent_runs` | Agent execution audit log |
+| Table             | Purpose                                               |
+| ----------------- | ----------------------------------------------------- |
+| `users`           | App users (`external_id` for string IDs from clients) |
+| `sessions`        | Conversation sessions per user                        |
+| `messages`        | Chat message history                                  |
+| `memories`        | Long-term memory entries                              |
+| `documents`       | RAG source documents                                  |
+| `document_chunks` | Chunked document text                                 |
+| `embeddings`      | pgvector embeddings for similarity search             |
+| `tool_runs`       | MCP / tool execution audit log                        |
+| `agent_runs`      | Agent execution audit log                             |
 
 All tables use **UUID primary keys**, **`created_at` / `updated_at`** timestamps (with auto-update triggers), and **JSONB `metadata`** where useful.
 

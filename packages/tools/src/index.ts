@@ -8,7 +8,10 @@ export interface BuiltinTool {
 
 export class BuiltinToolProvider implements ToolProvider {
   readonly name = 'builtin';
-  private readonly registry = new Map<string, { definition: ToolDefinition; handler: ToolHandler }>();
+  private readonly registry = new Map<
+    string,
+    { definition: ToolDefinition; handler: ToolHandler }
+  >();
 
   constructor(tools: BuiltinTool[] = defaultTools) {
     for (const tool of tools) {
@@ -61,6 +64,8 @@ export const defaultTools: BuiltinTool[] = [
   },
 ];
 
-export function createBuiltinToolProvider(tools: BuiltinTool[] = defaultTools): BuiltinToolProvider {
+export function createBuiltinToolProvider(
+  tools: BuiltinTool[] = defaultTools,
+): BuiltinToolProvider {
   return new BuiltinToolProvider(tools);
 }

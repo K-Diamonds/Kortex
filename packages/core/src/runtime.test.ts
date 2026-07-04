@@ -166,9 +166,7 @@ describe('KortexRuntime MVP', () => {
         {
           name: 'builtin',
           registerTool: () => {},
-          listTools: async () => [
-            { name: 'echo', description: 'echo', parameters: {} },
-          ],
+          listTools: async () => [{ name: 'echo', description: 'echo', parameters: {} }],
           executeTool: async (_name, args) => args,
         },
       ],

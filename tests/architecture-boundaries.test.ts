@@ -117,7 +117,9 @@ function createMockVectorProvider(): VectorProvider {
   return {
     name: 'mock-vector',
     createIndex: vi.fn(async () => {}),
-    upsert: vi.fn(async (records) => records.map((record, index) => ({ ...record, id: `vec_${index}` }))),
+    upsert: vi.fn(async (records) =>
+      records.map((record, index) => ({ ...record, id: `vec_${index}` })),
+    ),
     search: vi.fn(async () => [{ id: 'vec_0', content: 'retrieved chunk', score: 0.95 }]),
     delete: vi.fn(async () => {}),
   };
@@ -137,10 +139,9 @@ describe('architecture boundaries — @kortex/core imports', () => {
     for (const specifier of imports) {
       if (!specifier.startsWith('@kortex/')) continue;
 
-      expect(
-        FORBIDDEN_CORE_IMPORTS,
-        `${filePath} must not import ${specifier}`,
-      ).not.toContain(specifier);
+      expect(FORBIDDEN_CORE_IMPORTS, `${filePath} must not import ${specifier}`).not.toContain(
+        specifier,
+      );
     }
   });
 
@@ -306,12 +307,15 @@ describe('architecture boundaries — memory provider packages', () => {
     },
   ] as const;
 
-  it.each(memoryProviders)('$label implements MemoryProvider', async ({ load, exportName, create }) => {
-    const mod = await load();
-    const Provider = mod[exportName as keyof typeof mod];
-    expect(Provider).toBeDefined();
-    assertMemoryProvider(create(mod as never));
-  });
+  it.each(memoryProviders)(
+    '$label implements MemoryProvider',
+    async ({ load, exportName, create }) => {
+      const mod = await load();
+      const Provider = mod[exportName as keyof typeof mod];
+      expect(Provider).toBeDefined();
+      assertMemoryProvider(create(mod as never));
+    },
+  );
 });
 
 describe('architecture boundaries — @kortex/ui imports', () => {
@@ -336,10 +340,9 @@ describe('architecture boundaries — @kortex/ui imports', () => {
     const source = readFileSync(filePath, 'utf8');
     for (const specifier of collectImportSpecifiers(source)) {
       if (!specifier.startsWith('@kortex/')) continue;
-      expect(
-        FORBIDDEN_UI_IMPORTS,
-        `${filePath} must not import ${specifier}`,
-      ).not.toContain(specifier);
+      expect(FORBIDDEN_UI_IMPORTS, `${filePath} must not import ${specifier}`).not.toContain(
+        specifier,
+      );
     }
   });
 });
@@ -350,23 +353,26 @@ describe('architecture boundaries — vector provider packages', () => {
       label: '@kortex/pgvector',
       load: () => import('../packages/vector/pgvector/src/index.js'),
       exportName: 'PgVectorProvider',
-      create: (mod: { PgVectorProvider: new (config: { databaseUrl: string }) => VectorProvider }) =>
-        new mod.PgVectorProvider({ databaseUrl: 'postgresql://localhost/kortex' }),
+      create: (mod: {
+        PgVectorProvider: new (config: { databaseUrl: string }) => VectorProvider;
+      }) => new mod.PgVectorProvider({ databaseUrl: 'postgresql://localhost/kortex' }),
     },
     {
       label: '@kortex/qdrant',
       load: () => import('../packages/vector/qdrant/src/index.js'),
       exportName: 'QdrantVectorProvider',
-      create: (mod: {
-        QdrantVectorProvider: new (config: { url: string }) => VectorProvider;
-      }) => new mod.QdrantVectorProvider({ url: 'http://localhost:6333' }),
+      create: (mod: { QdrantVectorProvider: new (config: { url: string }) => VectorProvider }) =>
+        new mod.QdrantVectorProvider({ url: 'http://localhost:6333' }),
     },
   ] as const;
 
-  it.each(vectorProviders)('$label implements VectorProvider', async ({ load, exportName, create }) => {
-    const mod = await load();
-    const Provider = mod[exportName as keyof typeof mod];
-    expect(Provider).toBeDefined();
-    assertVectorProvider(create(mod as never));
-  });
+  it.each(vectorProviders)(
+    '$label implements VectorProvider',
+    async ({ load, exportName, create }) => {
+      const mod = await load();
+      const Provider = mod[exportName as keyof typeof mod];
+      expect(Provider).toBeDefined();
+      assertVectorProvider(create(mod as never));
+    },
+  );
 });

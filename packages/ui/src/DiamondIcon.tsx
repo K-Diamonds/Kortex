@@ -1,10 +1,4 @@
-export function DiamondIcon({
-  size = 28,
-  className,
-}: {
-  size?: number;
-  className?: string;
-}) {
+export function DiamondIcon({ size = 28, className }: { size?: number; className?: string }) {
   const id = `diamond-${size}`;
   return (
     <svg
@@ -22,11 +16,7 @@ export function DiamondIcon({
         stroke="rgba(0,212,255,0.6)"
         strokeWidth="1"
       />
-      <polygon
-        points="20,8 32,20 20,32 8,20"
-        fill={`url(#${id}-inner)`}
-        opacity="0.6"
-      />
+      <polygon points="20,8 32,20 20,32 8,20" fill={`url(#${id}-inner)`} opacity="0.6" />
       <defs>
         <linearGradient id={`${id}-grad`} x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#00d4ff" />
@@ -44,7 +34,16 @@ export function DiamondIcon({
 function RobotIcon({ color = '#ffffff' }: { color?: string }) {
   return (
     <g transform="translate(16, 16)" aria-hidden>
-      <rect x="3" y="6" width="18" height="12" rx="2.5" stroke={color} strokeWidth="1.5" fill="none" />
+      <rect
+        x="3"
+        y="6"
+        width="18"
+        height="12"
+        rx="2.5"
+        stroke={color}
+        strokeWidth="1.5"
+        fill="none"
+      />
       <circle cx="9" cy="12" r="1.5" fill={color} />
       <circle cx="15" cy="12" r="1.5" fill={color} />
       <path d="M12 6V3.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
@@ -59,7 +58,13 @@ function RobotIcon({ color = '#ffffff' }: { color?: string }) {
 export function DiamondToggleButton({ open, size = 56 }: { open: boolean; size?: number }) {
   const gradId = `btnGrad-${size}`;
   return (
-    <svg viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" width={size} height={size}>
+    <svg
+      viewBox="0 0 56 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+    >
       <polygon
         points="28,3 53,28 28,53 3,28"
         fill={`url(#${gradId})`}

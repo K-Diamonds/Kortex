@@ -4,7 +4,10 @@ import { Code, DocPage } from '@/components/Docs';
 export default function BackendRouteNextjsPage() {
   return (
     <DocPage title="Next.js route">
-      <p>App Router example with <code>createKortexFromEnv()</code> and JSON response (non-streaming).</p>
+      <p>
+        App Router example with <code>createKortexFromEnv()</code> and JSON response
+        (non-streaming).
+      </p>
       <Code>{`// app/api/kortex/chat/route.ts
 import { createKortexFromEnv } from "@kortex/config";
 

@@ -8,7 +8,9 @@ export interface EnsureEmbeddingsTableOptions {
 
 function assertValidDimensions(dimensions: number): void {
   if (!Number.isInteger(dimensions) || dimensions <= 0) {
-    throw new Error(`Invalid embedding dimensions: ${dimensions}. EMBEDDING_DIMENSIONS must be a positive integer.`);
+    throw new Error(
+      `Invalid embedding dimensions: ${dimensions}. EMBEDDING_DIMENSIONS must be a positive integer.`,
+    );
   }
 }
 
@@ -67,7 +69,9 @@ export async function getEmbeddingsTableDimensions(
   const type = result.rows[0]?.type;
   const match = type?.match(/^vector\((\d+)\)$/);
   if (!match) {
-    throw new Error(`Could not read embedding column type from embeddings table (got: ${type ?? 'unknown'})`);
+    throw new Error(
+      `Could not read embedding column type from embeddings table (got: ${type ?? 'unknown'})`,
+    );
   }
 
   return Number(match[1]);

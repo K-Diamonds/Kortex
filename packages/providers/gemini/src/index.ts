@@ -1,4 +1,12 @@
-import type { AIProvider, ChatOptions, ChatResponse, EmbedOptions, EmbedResponse, Message, StreamChunk } from '@kortex/core';
+import type {
+  AIProvider,
+  ChatOptions,
+  ChatResponse,
+  EmbedOptions,
+  EmbedResponse,
+  Message,
+  StreamChunk,
+} from '@kortex/core';
 
 export interface GeminiProviderConfig {
   apiKey: string;
@@ -34,7 +42,10 @@ export class GeminiProvider implements AIProvider {
     if (!config.apiKey?.trim()) throw new Error('GEMINI_API_KEY is required');
     this.apiKey = config.apiKey;
     this.defaultModel = config.model ?? 'gemini-1.5-flash';
-    this.baseUrl = (config.baseUrl ?? 'https://generativelanguage.googleapis.com').replace(/\/$/, '');
+    this.baseUrl = (config.baseUrl ?? 'https://generativelanguage.googleapis.com').replace(
+      /\/$/,
+      '',
+    );
   }
 
   private modelUrl(model: string, action: string): string {
@@ -47,7 +58,8 @@ export class GeminiProvider implements AIProvider {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'ping' }] }] }),
     });
-    if (response.status === 401 || response.status === 403) throw new Error('Gemini API key invalid');
+    if (response.status === 401 || response.status === 403)
+      throw new Error('Gemini API key invalid');
     if (!response.ok && response.status !== 400) {
       throw new Error(`Gemini validation failed: ${await readError(response)}`);
     }
@@ -72,7 +84,11 @@ export class GeminiProvider implements AIProvider {
     if (!response.ok) throw new Error(`Gemini chat failed: ${await readError(response)}`);
     const data = (await response.json()) as {
       candidates?: Array<{ content?: { parts?: Array<{ text?: string }> }; finishReason?: string }>;
-      usageMetadata?: { promptTokenCount?: number; candidatesTokenCount?: number; totalTokenCount?: number };
+      usageMetadata?: {
+        promptTokenCount?: number;
+        candidatesTokenCount?: number;
+        totalTokenCount?: number;
+      };
     };
     const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
     const usage = data.usageMetadata;

@@ -188,7 +188,10 @@ export class HttpOpenAICompatibleProvider implements AIProvider {
       throw new Error(`${this.name} embed failed: ${await readApiError(response)}`);
     }
 
-    const data = (await response.json()) as { data: Array<{ embedding: number[] }>; model?: string };
+    const data = (await response.json()) as {
+      data: Array<{ embedding: number[] }>;
+      model?: string;
+    };
     const embeddings = data.data.map((row) => row.embedding);
     return { embeddings, model: data.model ?? model, dimensions: embeddings[0]?.length ?? 0 };
   }

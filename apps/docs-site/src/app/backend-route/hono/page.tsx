@@ -37,7 +37,8 @@ app.post("/api/kortex/chat", async (c) => {
 });
 
 export default app;`}</Code>
-      <p>Works on Node, Bun, Cloudflare Workers (with compatible adapters).{' '}
+      <p>
+        Works on Node, Bun, Cloudflare Workers (with compatible adapters).{' '}
         <Link href="/getting-started/minimum-setup">Minimum setup</Link>
       </p>
     </DocPage>

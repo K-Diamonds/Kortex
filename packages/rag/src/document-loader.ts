@@ -5,10 +5,19 @@ export class TextDocumentLoader implements DocumentLoader {
   readonly name = 'text';
 
   async load(source: string, options?: DocumentLoadOptions): Promise<RAGDocument[]> {
-    return [{ id: options?.metadata?.id as string | undefined, content: source, metadata: options?.metadata }];
+    return [
+      {
+        id: options?.metadata?.id as string | undefined,
+        content: source,
+        metadata: options?.metadata,
+      },
+    ];
   }
 
-  chunk(document: RAGDocument, options?: { chunkSize?: number; chunkOverlap?: number }): RAGChunk[] {
+  chunk(
+    document: RAGDocument,
+    options?: { chunkSize?: number; chunkOverlap?: number },
+  ): RAGChunk[] {
     return chunkDocuments([document], options);
   }
 }
@@ -22,7 +31,10 @@ export class FileDocumentLoader implements DocumentLoader {
     return [{ content, metadata: { ...options?.metadata, path: source } }];
   }
 
-  chunk(document: RAGDocument, options?: { chunkSize?: number; chunkOverlap?: number }): RAGChunk[] {
+  chunk(
+    document: RAGDocument,
+    options?: { chunkSize?: number; chunkOverlap?: number },
+  ): RAGChunk[] {
     return chunkDocuments([document], options);
   }
 }

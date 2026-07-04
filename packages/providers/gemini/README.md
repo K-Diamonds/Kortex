@@ -3,10 +3,10 @@
 **Status: Beta** — Google Gemini adapter for Kortex.
 
 | Capability | Supported |
-|------------|-----------|
-| Chat | Yes |
-| Streaming | Yes |
-| Embeddings | Yes |
+| ---------- | --------- |
+| Chat       | Yes       |
+| Streaming  | Yes       |
+| Embeddings | Yes       |
 
 ## Environment
 

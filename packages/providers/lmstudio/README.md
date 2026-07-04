@@ -2,10 +2,10 @@
 
 **Status: Beta** — LM Studio self-hosted OpenAI-compatible server adapter for Kortex.
 
-| Capability | Supported |
-|------------|-----------|
-| Chat | Yes |
-| Streaming | Yes |
+| Capability | Supported                                               |
+| ---------- | ------------------------------------------------------- |
+| Chat       | Yes                                                     |
+| Streaming  | Yes                                                     |
 | Embeddings | Yes (if your LM Studio server exposes `/v1/embeddings`) |
 
 ## Environment

@@ -37,10 +37,7 @@ export function chunkText(text: string, options: ChunkOptions = {}): string[] {
   return chunks;
 }
 
-export function chunkDocuments(
-  documents: RAGDocument[],
-  options: ChunkOptions = {},
-): RAGChunk[] {
+export function chunkDocuments(documents: RAGDocument[], options: ChunkOptions = {}): RAGChunk[] {
   const chunks: RAGChunk[] = [];
 
   for (const doc of documents) {
@@ -62,7 +59,10 @@ export class RAGPipeline {
 
   async ingest(documents: RAGDocument[], options: IngestOptions = {}): Promise<RAGChunk[]> {
     const chunks = chunkDocuments(documents, options);
-    logger.info('ingesting documents', { documentCount: documents.length, chunkCount: chunks.length });
+    logger.info('ingesting documents', {
+      documentCount: documents.length,
+      chunkCount: chunks.length,
+    });
 
     if (!this.runtime.vector) {
       throw new Error('Vector provider required for RAG ingest');

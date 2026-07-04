@@ -1,4 +1,12 @@
-import type { AIProvider, ChatOptions, ChatResponse, EmbedOptions, EmbedResponse, Message, StreamChunk } from '@kortex/core';
+import type {
+  AIProvider,
+  ChatOptions,
+  ChatResponse,
+  EmbedOptions,
+  EmbedResponse,
+  Message,
+  StreamChunk,
+} from '@kortex/core';
 
 export interface AnthropicProviderConfig {
   apiKey: string;
@@ -20,7 +28,10 @@ function toAnthropicMessages(messages: Message[]) {
   const rest = messages.filter((m) => m.role !== 'system');
   return {
     system,
-    messages: rest.map((m) => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content })),
+    messages: rest.map((m) => ({
+      role: m.role === 'assistant' ? 'assistant' : 'user',
+      content: m.content,
+    })),
   };
 }
 

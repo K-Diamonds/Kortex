@@ -12,17 +12,16 @@ export interface ProviderInfo {
   notes?: string;
 }
 
-export const providerStatusGuide: Record<
-  ProviderStatus,
-  { label: string; description: string }
-> = {
+export const providerStatusGuide: Record<ProviderStatus, { label: string; description: string }> = {
   Stable: {
     label: 'Stable',
-    description: 'Reference adapter with the most test coverage. Recommended for evaluation and early production pilots.',
+    description:
+      'Reference adapter with the most test coverage. Recommended for evaluation and early production pilots.',
   },
   Beta: {
     label: 'Beta',
-    description: 'Implemented and usable, but APIs and behavior may change. Less test coverage than OpenAI.',
+    description:
+      'Implemented and usable, but APIs and behavior may change. Less test coverage than OpenAI.',
   },
   Experimental: {
     label: 'Experimental',
@@ -51,7 +50,8 @@ export const providers: ProviderInfo[] = [
     embeddings: false,
     status: 'Beta',
     envVars: ['AI_PROVIDER=anthropic', 'ANTHROPIC_API_KEY', 'AI_MODEL (optional)'],
-    notes: 'No native embeddings — set EMBEDDING_PROVIDER=openai or another embedding backend for RAG.',
+    notes:
+      'No native embeddings — set EMBEDDING_PROVIDER=openai or another embedding backend for RAG.',
   },
   {
     name: 'Google Gemini',
@@ -109,7 +109,8 @@ export const providers: ProviderInfo[] = [
       'OPENCLAW_TOKEN (optional)',
       'AI_MODEL (optional)',
     ],
-    notes: 'Experimental HTTP-compatible adapter — assumes `/v1/chat/completions`, `/v1/embeddings`, and `/v1/models` on your server.',
+    notes:
+      'Experimental HTTP-compatible adapter — assumes `/v1/chat/completions`, `/v1/embeddings`, and `/v1/models` on your server.',
   },
   {
     name: 'Hermes',
@@ -125,7 +126,8 @@ export const providers: ProviderInfo[] = [
       'HERMES_TOKEN (optional)',
       'AI_MODEL (optional)',
     ],
-    notes: 'Experimental HTTP-compatible adapter — assumes `/v1/chat/completions`, `/v1/embeddings`, and `/v1/models` on your server.',
+    notes:
+      'Experimental HTTP-compatible adapter — assumes `/v1/chat/completions`, `/v1/embeddings`, and `/v1/models` on your server.',
   },
 ];
 

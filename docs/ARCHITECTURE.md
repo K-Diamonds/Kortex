@@ -18,13 +18,13 @@ Kortex follows **clean architecture** with clear boundaries between domain logic
 
 ## Core Interfaces
 
-| Interface | Responsibility |
-|-----------|----------------|
-| `AIProvider` | LLM chat, stream, embed |
-| `MemoryProvider` | Conversations, user memory, sessions |
-| `VectorProvider` | Embeddings storage, similarity search |
-| `ToolProvider` | Tool listing and execution |
-| `Agent` | Instruction-driven autonomous execution |
+| Interface        | Responsibility                          |
+| ---------------- | --------------------------------------- |
+| `AIProvider`     | LLM chat, stream, embed                 |
+| `MemoryProvider` | Conversations, user memory, sessions    |
+| `VectorProvider` | Embeddings storage, similarity search   |
+| `ToolProvider`   | Tool listing and execution              |
+| `Agent`          | Instruction-driven autonomous execution |
 
 ## AIRuntime
 

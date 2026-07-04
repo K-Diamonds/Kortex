@@ -78,7 +78,10 @@ const whyKortex = [
 ];
 
 const roadmap = [
-  { done: true, label: 'Multi-LLM providers (OpenAI, Anthropic, Gemini, OpenRouter, Ollama, LM Studio)' },
+  {
+    done: true,
+    label: 'Multi-LLM providers (OpenAI, Anthropic, Gemini, OpenRouter, Ollama, LM Studio)',
+  },
   { done: true, label: 'Postgres memory and pgvector vector store' },
   { done: true, label: 'Redis memory and Qdrant vectors' },
   { done: true, label: 'RAG ingestion pipeline' },
@@ -133,8 +136,8 @@ export function LandingPage() {
           <h1>Build production-ready AI backends, not just AI calls.</h1>
 
           <p className="landing-hero-sub">
-            Unify chat, streaming, memory, vector search, RAG, tools, and agents behind one
-            testable runtime. Bring your own LLM, database, and vector store — swap adapters without
+            Unify chat, streaming, memory, vector search, RAG, tools, and agents behind one testable
+            runtime. Bring your own LLM, database, and vector store — swap adapters without
             rewriting your app.
           </p>
 
@@ -159,12 +162,13 @@ export function LandingPage() {
                 <span className="cm">{'// Wire everything from .env'}</span>
                 {'\n'}
                 <span className="kw">import</span> {'{ createKortexFromEnv }'}{' '}
-                <span className="kw">from</span> <span className="str">&quot;@kortex/config&quot;</span>;
-                {'\n\n'}
+                <span className="kw">from</span>{' '}
+                <span className="str">&quot;@kortex/config&quot;</span>;{'\n\n'}
                 <span className="kw">const</span> kortex = <span className="kw">await</span>{' '}
                 <span className="fn">createKortexFromEnv</span>();
                 {'\n\n'}
-                <span className="kw">const</span> response = <span className="kw">await</span> kortex.
+                <span className="kw">const</span> response = <span className="kw">await</span>{' '}
+                kortex.
                 <span className="fn">chat</span>({'{'}
                 {'\n'}
                 {'  '}userId: <span className="str">&quot;user_123&quot;</span>,{'\n'}
@@ -256,7 +260,9 @@ export function LandingPage() {
         <div className="landing-container">
           <div className="landing-section-header">
             <h2>Quickstart</h2>
-            <p>Clone the monorepo, configure your stack, and run the reference chatbot in minutes.</p>
+            <p>
+              Clone the monorepo, configure your stack, and run the reference chatbot in minutes.
+            </p>
           </div>
           <div className="landing-grid landing-grid-2">
             <div className="landing-code-block">
@@ -301,8 +307,8 @@ EMBEDDING_PROVIDER=openai`}</pre>
           <div className="landing-section-header">
             <h2>Provider matrix</h2>
             <p>
-              Set AI_PROVIDER in .env to switch LLM backends. Stable, beta, and experimental adapters
-              are documented with required environment variables.
+              Set AI_PROVIDER in .env to switch LLM backends. Stable, beta, and experimental
+              adapters are documented with required environment variables.
             </p>
           </div>
           <div className="landing-table-wrap">
@@ -329,9 +335,7 @@ EMBEDDING_PROVIDER=openai`}</pre>
                     <td>
                       <code>{p.package}</code>
                     </td>
-                    <td className={p.chat ? 'landing-yes' : 'landing-no'}>
-                      {capability(p.chat)}
-                    </td>
+                    <td className={p.chat ? 'landing-yes' : 'landing-no'}>{capability(p.chat)}</td>
                     <td className={p.streaming ? 'landing-yes' : 'landing-no'}>
                       {capability(p.streaming)}
                     </td>
@@ -363,8 +367,8 @@ EMBEDDING_PROVIDER=openai`}</pre>
           <div className="landing-section-header">
             <h2>Why Kortex</h2>
             <p>
-              Production AI apps fail on integration surface area — not prompt quality alone.
-              Kortex gives you one runtime instead of a pile of incompatible SDKs.
+              Production AI apps fail on integration surface area — not prompt quality alone. Kortex
+              gives you one runtime instead of a pile of incompatible SDKs.
             </p>
           </div>
           <div className="landing-why-grid">
@@ -406,8 +410,7 @@ EMBEDDING_PROVIDER=openai`}</pre>
       <footer className="landing-footer">
         <div className="landing-container">
           <p>
-            Kortex · MIT License ·{' '}
-            <Link href="/getting-started">Documentation</Link>
+            Kortex · MIT License · <Link href="/getting-started">Documentation</Link>
             {' · '}
             <a href="https://github.com/kortex-ai/kortex" target="_blank" rel="noopener noreferrer">
               GitHub

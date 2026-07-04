@@ -10,8 +10,8 @@ export default function BackendRouteIndexPage() {
         credentials.
       </p>
       <p>
-        Your backend route owns provider selection, model, API keys/tokens, memory, database,
-        vector store, RAG, MCP, tools, and agents.
+        Your backend route owns provider selection, model, API keys/tokens, memory, database, vector
+        store, RAG, MCP, tools, and agents.
       </p>
 
       <h2>Start here</h2>

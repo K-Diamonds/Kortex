@@ -231,7 +231,12 @@ export function Kortex({
             <View style={styles.avatar}>
               <Text style={styles.avatarText}>{item.role === 'user' ? 'U' : '◆'}</Text>
             </View>
-            <View style={[styles.bubble, item.role === 'user' ? styles.userBubble : styles.assistantBubble]}>
+            <View
+              style={[
+                styles.bubble,
+                item.role === 'user' ? styles.userBubble : styles.assistantBubble,
+              ]}
+            >
               <Text style={styles.bubbleText}>
                 {item.content || (loading && item.role === 'assistant' ? '…' : item.content)}
               </Text>
@@ -251,7 +256,11 @@ export function Kortex({
             placeholderTextColor={isDark ? 'rgba(255,255,255,0.35)' : 'rgba(12,26,36,0.35)'}
             editable={!loading}
           />
-          <Pressable style={styles.sendButton} onPress={() => void submit()} disabled={loading || !input.trim()}>
+          <Pressable
+            style={styles.sendButton}
+            onPress={() => void submit()}
+            disabled={loading || !input.trim()}
+          >
             {loading ? (
               <ActivityIndicator color="#00d4ff" size="small" />
             ) : (

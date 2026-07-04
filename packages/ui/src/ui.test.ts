@@ -12,7 +12,13 @@ describe('@kortex/ui types', () => {
   });
 
   it('does not include secret fields in KortexProps', () => {
-    const forbidden = ['apiKey', 'openaiApiKey', 'databaseUrl', 'connectionString', 'token'] as const;
+    const forbidden = [
+      'apiKey',
+      'openaiApiKey',
+      'databaseUrl',
+      'connectionString',
+      'token',
+    ] as const;
     type Keys = keyof KortexProps;
     const keys: Keys[] = forbidden as unknown as Keys[];
     for (const key of keys) {

@@ -22,7 +22,9 @@ describe('embeddings-schema', () => {
   });
 
   it('assertEmbeddingVectorLength throws on mismatch', () => {
-    expect(() => assertEmbeddingVectorLength([1, 2, 3], 1536)).toThrow('Embedding dimension mismatch');
+    expect(() => assertEmbeddingVectorLength([1, 2, 3], 1536)).toThrow(
+      'Embedding dimension mismatch',
+    );
     expect(() => assertEmbeddingVectorLength(new Array(1536).fill(0), 1536)).not.toThrow();
   });
 

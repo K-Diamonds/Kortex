@@ -17,8 +17,8 @@ export default function Home() {
         <p className="docs-hero-tagline">AI RUNTIME FOR TYPESCRIPT — DEPLOY ANYWHERE</p>
         <p className="docs-hero-desc">
           Provider-agnostic backend runtime with memory, vector search, RAG, MCP tools, and agents.
-          Drop-in <code>&lt;Kortex /&gt;</code> chat widget for React, Next.js, and React Native — or{' '}
-          <code>&lt;kortex-ui&gt;</code> for other web frameworks.
+          Drop-in <code>&lt;Kortex /&gt;</code> chat widget for React, Next.js, and React Native —
+          or <code>&lt;kortex-ui&gt;</code> for other web frameworks.
         </p>
         <div className="docs-hero-actions">
           <Link href="/getting-started" className="docs-btn docs-btn-primary">

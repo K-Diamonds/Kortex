@@ -36,7 +36,7 @@ function tokenize(input: string): Token[] {
       continue;
     }
 
-    if (char >= '0' && char <= '9' || char === '.') {
+    if ((char >= '0' && char <= '9') || char === '.') {
       const start = i;
       while (i < input.length && /[\d.]/.test(input[i]!)) {
         i++;

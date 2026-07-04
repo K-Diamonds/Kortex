@@ -35,11 +35,21 @@ export async function POST(request: Request) {
     content = REPLIES[0]!;
   } else if (lower.includes('prop') || lower.includes('option') || lower.includes('accept')) {
     content = REPLIES[1]!;
-  } else if (lower.includes('vue') || lower.includes('svelte') || lower.includes('web component') || lower.includes('html')) {
+  } else if (
+    lower.includes('vue') ||
+    lower.includes('svelte') ||
+    lower.includes('web component') ||
+    lower.includes('html')
+  ) {
     content = REPLIES[2]!;
   } else if (lower.includes('react') || lower.includes('next')) {
     content = REPLIES[3]!;
-  } else if (lower.includes('color') || lower.includes('theme') || lower.includes('style') || lower.includes('custom')) {
+  } else if (
+    lower.includes('color') ||
+    lower.includes('theme') ||
+    lower.includes('style') ||
+    lower.includes('custom')
+  ) {
     content = REPLIES[4]!;
   } else if (lower.includes('position') || lower.includes('corner')) {
     content = REPLIES[5]!;

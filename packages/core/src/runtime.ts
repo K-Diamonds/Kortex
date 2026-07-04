@@ -137,17 +137,20 @@ export class KortexRuntime {
   }
 
   async remember(entry: Omit<MemoryEntry, 'id' | 'createdAt'>): Promise<MemoryEntry> {
-    if (!this.memory) throw new KortexError('No memory provider configured', 'MEMORY_NOT_CONFIGURED');
+    if (!this.memory)
+      throw new KortexError('No memory provider configured', 'MEMORY_NOT_CONFIGURED');
     return this.memory.saveMemory(entry);
   }
 
   async searchMemory(options: MemorySearchOptions): Promise<MemoryEntry[]> {
-    if (!this.memory) throw new KortexError('No memory provider configured', 'MEMORY_NOT_CONFIGURED');
+    if (!this.memory)
+      throw new KortexError('No memory provider configured', 'MEMORY_NOT_CONFIGURED');
     return this.memory.searchMemory(options);
   }
 
   async retrieveContext(options: RetrieveContextOptions): Promise<RetrievedContext> {
-    if (!this.vector) throw new KortexError('No vector provider configured', 'VECTOR_NOT_CONFIGURED');
+    if (!this.vector)
+      throw new KortexError('No vector provider configured', 'VECTOR_NOT_CONFIGURED');
     const { embeddings } = await this.embed({ input: options.query });
     const embedding = embeddings[0];
     if (!embedding) throw new KortexError('Failed to generate query embedding', 'EMBED_ERROR');
@@ -161,7 +164,8 @@ export class KortexRuntime {
   }
 
   async ingest(request: IngestRequest): Promise<RAGChunk[]> {
-    if (!this.vector) throw new KortexError('No vector provider configured', 'VECTOR_NOT_CONFIGURED');
+    if (!this.vector)
+      throw new KortexError('No vector provider configured', 'VECTOR_NOT_CONFIGURED');
     const chunks: RAGChunk[] = [];
     for (const doc of request.documents) {
       for (const text of chunkText(doc.content, request.chunkSize, request.chunkOverlap)) {

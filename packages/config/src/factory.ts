@@ -185,12 +185,9 @@ export async function createKortexFromEnv(
   const provider = options.provider ?? (await loadAIProvider(config.aiProvider, config));
   await provider.validateConfig();
 
-  const memory =
-    options.memory ?? (await loadMemoryProvider(config.memoryProvider, config));
-  const vector =
-    options.vector ?? (await loadVectorProvider(config.vectorProvider, config));
-  const embedding =
-    options.embedding ?? (await loadEmbeddingProvider(config, provider));
+  const memory = options.memory ?? (await loadMemoryProvider(config.memoryProvider, config));
+  const vector = options.vector ?? (await loadVectorProvider(config.vectorProvider, config));
+  const embedding = options.embedding ?? (await loadEmbeddingProvider(config, provider));
 
   const tools: ToolProvider[] = [...(options.tools ?? [])];
   if (config.mcpEnabled) {

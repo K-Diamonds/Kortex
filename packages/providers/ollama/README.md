@@ -3,10 +3,10 @@
 **Status: Beta** — Ollama self-hosted LLM adapter for Kortex.
 
 | Capability | Supported |
-|------------|-----------|
-| Chat | Yes |
-| Streaming | Yes |
-| Embeddings | Yes |
+| ---------- | --------- |
+| Chat       | Yes       |
+| Streaming  | Yes       |
+| Embeddings | Yes       |
 
 Uses Ollama HTTP APIs with OpenAI-compatible chat paths.
 

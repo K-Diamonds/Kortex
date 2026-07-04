@@ -8,8 +8,8 @@ export default function ChatWebComponentPage() {
     <DocPage title="Web Component">
       <SecurityNote />
       <p>
-        For Vue, Svelte, Angular, Astro, or plain HTML — register <code>&lt;kortex-ui&gt;</code> once,
-        then use it in templates. There is no <code>@kortex/vue</code> wrapper package.
+        For Vue, Svelte, Angular, Astro, or plain HTML — register <code>&lt;kortex-ui&gt;</code>{' '}
+        once, then use it in templates. There is no <code>@kortex/vue</code> wrapper package.
       </p>
 
       <h2>Register the element</h2>
@@ -51,7 +51,9 @@ onMounted(() => {
 </template>`}</Code>
 
       <h2>Attribute reference</h2>
-      <p>Boolean props use HTML attributes — presence means <code>true</code>.</p>
+      <p>
+        Boolean props use HTML attributes — presence means <code>true</code>.
+      </p>
       <PropTable rows={WEB_COMPONENT_ATTRS} />
 
       <p>

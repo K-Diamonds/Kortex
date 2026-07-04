@@ -2,12 +2,7 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { createSessionIds, sendKortexMessage, toKortexMessage } from './client.js';
-import {
-  DiamondIcon,
-  DiamondToggleButton,
-  SendIcon,
-  UserIcon,
-} from './DiamondIcon.js';
+import { DiamondIcon, DiamondToggleButton, SendIcon, UserIcon } from './DiamondIcon.js';
 import { positionStyles, resolveTheme, roundedValue, themeTokens } from './styles.js';
 import type { KortexMessage, KortexProps } from './types.js';
 
@@ -219,7 +214,9 @@ export function Kortex({
               <span style={{ fontSize: 10, color: tokens.muted }}>{statusLine}</span>
             </div>
             {showModel && lastModel ? (
-              <div style={{ fontSize: 10, color: tokens.muted, marginTop: 2 }}>Model: {lastModel}</div>
+              <div style={{ fontSize: 10, color: tokens.muted, marginTop: 2 }}>
+                Model: {lastModel}
+              </div>
             ) : null}
           </div>
         </div>
@@ -287,7 +284,16 @@ export function Kortex({
                 flexDirection: isUser ? 'row-reverse' : 'row',
               }}
             >
-              <div style={{ width: 24, height: 24, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div
+                style={{
+                  width: 24,
+                  height: 24,
+                  flexShrink: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
                 {isUser ? (
                   <div
                     style={{
@@ -330,9 +336,12 @@ export function Kortex({
                       }),
                 }}
               >
-                {message.content || (loading && showTyping && index === messages.length - 1 ? '…' : '')}
+                {message.content ||
+                  (loading && showTyping && index === messages.length - 1 ? '…' : '')}
                 {showTimestamp && message.timestamp ? (
-                  <div style={{ fontSize: 10, color: tokens.muted, marginTop: 6 }}>{message.timestamp}</div>
+                  <div style={{ fontSize: 10, color: tokens.muted, marginTop: 6 }}>
+                    {message.timestamp}
+                  </div>
                 ) : null}
               </div>
             </div>

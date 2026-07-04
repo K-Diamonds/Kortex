@@ -32,9 +32,7 @@ export class OllamaProvider extends HttpOpenAICompatibleProvider {
 
 export class OllamaEmbeddingProvider implements EmbeddingProvider {
   readonly name = 'ollama-embed';
-  constructor(
-    private readonly config: { baseUrl: string; model: string },
-  ) {}
+  constructor(private readonly config: { baseUrl: string; model: string }) {}
 
   async embedText(text: string, options?: EmbedDocumentOptions): Promise<number[]> {
     const model = options?.model ?? this.config.model;

@@ -36,7 +36,10 @@ export default function ChatVanillaExamplePage() {
 </html>`}</Code>
 
       <h2>Svelte / Astro</h2>
-      <p>Same pattern — register in a client script, then use <code>&lt;kortex-ui&gt;</code> in markup.</p>
+      <p>
+        Same pattern — register in a client script, then use <code>&lt;kortex-ui&gt;</code> in
+        markup.
+      </p>
       <Code>{`---
 // ChatWidget.astro (client:load a wrapper that calls registerKortexElement)
 ---

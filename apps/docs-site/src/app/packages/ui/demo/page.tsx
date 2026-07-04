@@ -14,8 +14,8 @@ export default function ChatDemoPage() {
     <DocPage title="Live demo">
       <p>
         The diamond widget in the <strong>bottom-right corner</strong> of this site is a live{' '}
-        <code>@kortex/ui</code> instance wired to <code>POST /api/kortex/chat</code>. Open it and ask
-        about integration.
+        <code>@kortex/ui</code> instance wired to <code>POST /api/kortex/chat</code>. Open it and
+        ask about integration.
       </p>
 
       <div className="docs-demo-callout">

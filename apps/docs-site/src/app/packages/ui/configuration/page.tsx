@@ -37,7 +37,8 @@ export default function ChatConfigurationPage() {
       <h2>Variants</h2>
       <ul>
         <li>
-          <code>widget</code> — floating diamond toggle (default). Best for docs and marketing sites.
+          <code>widget</code> — floating diamond toggle (default). Best for docs and marketing
+          sites.
         </li>
         <li>
           <code>inline</code> — embedded panel, always visible in your layout.

@@ -86,8 +86,9 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm build && pnpm test
 
 1. Copy `.env.example` to `.env.local` and fill in values
 2. Optional: copy `.github/env.production.example` → `.github/env.production.local`
-3. Optional: copy `apps/docs-site/.env.vercel.example` → `apps/docs-site/.env.vercel` (when added)
-4. Run:
+3. Copy `apps/docs-site/.env.vercel.example` → `apps/docs-site/.env.vercel` and set Vercel project IDs
+4. In Vercel dashboard, set **Root Directory** to `apps/docs-site`
+5. Run:
 
 ```bash
 ./scripts/sync-github-env.sh --repo YOUR_ORG/kortex
@@ -102,11 +103,11 @@ CI_LITE=true ./scripts/check-github-env.sh   # skips secret checks
 
 ### Workflow jobs
 
-| Job | Purpose |
-|-----|---------|
-| `monorepo` | lint, typecheck, build, test |
-| `docs-site` | Next.js docs site build |
-| `docker-build` | Verify `apps/docs-site/Dockerfile` |
+| Job             | Purpose                                               |
+| --------------- | ----------------------------------------------------- |
+| `monorepo`      | lint, typecheck, build, test                          |
+| `docs-site`     | Next.js docs site build                               |
+| `docker-build`  | Verify `apps/docs-site/Dockerfile`                    |
 | `deploy-vercel` | Production deploy on `main` (requires Vercel secrets) |
 
 ## Questions?

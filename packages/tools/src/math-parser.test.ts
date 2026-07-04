@@ -19,21 +19,12 @@ describe('evaluateMathExpression', () => {
     expect(evaluateMathExpression(expression)).toBe(expected);
   });
 
-  it.each([
-    '',
-    '   ',
-    '2 +',
-    '2 + 2)',
-    '(2 + 3',
-    '2 & 2',
-    'abc',
-    '2 + 2;',
-    '2 ** 2',
-    '1..2',
-    '()',
-  ])('rejects invalid expression: %s', (expression) => {
-    expect(() => evaluateMathExpression(expression)).toThrow('Invalid expression');
-  });
+  it.each(['', '   ', '2 +', '2 + 2)', '(2 + 3', '2 & 2', 'abc', '2 + 2;', '2 ** 2', '1..2', '()'])(
+    'rejects invalid expression: %s',
+    (expression) => {
+      expect(() => evaluateMathExpression(expression)).toThrow('Invalid expression');
+    },
+  );
 
   it('rejects division by zero', () => {
     expect(() => evaluateMathExpression('1 / 0')).toThrow('Division by zero');

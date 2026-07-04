@@ -2,8 +2,8 @@ import { Code, DocPage } from '@/components/Docs';
 
 export default function ConfigurationPage() {
   return (
-      <DocPage title="Environment Configuration">
-        <Code>{`# AI
+    <DocPage title="Environment Configuration">
+      <Code>{`# AI
 AI_PROVIDER=openai
 AI_MODEL=gpt-4o-mini
 OPENAI_API_KEY=
@@ -35,9 +35,9 @@ EMBEDDING_DIMENSIONS=1536
 # Tools & debug
 MCP_ENABLED=false
 KORTEX_DEBUG=true`}</Code>
-        <p>
-          See <code>.env.example</code> in the repository root for the canonical template.
-        </p>
-      </DocPage>
+      <p>
+        See <code>.env.example</code> in the repository root for the canonical template.
+      </p>
+    </DocPage>
   );
 }

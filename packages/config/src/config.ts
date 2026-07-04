@@ -1,12 +1,5 @@
 export type AIProviderName =
-  | 'openai'
-  | 'anthropic'
-  | 'gemini'
-  | 'openrouter'
-  | 'ollama'
-  | 'lmstudio'
-  | 'openclaw'
-  | 'hermes';
+  'openai' | 'anthropic' | 'gemini' | 'openrouter' | 'ollama' | 'lmstudio' | 'openclaw' | 'hermes';
 
 export type MemoryProviderName = 'postgres' | 'redis' | 'none';
 export type VectorProviderName = 'pgvector' | 'qdrant' | 'none';
@@ -93,7 +86,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
     vectorProvider: (getEnv(env, 'VECTOR_PROVIDER', 'none') ?? 'none') as VectorProviderName,
     embeddingProvider: (getEnv(env, 'EMBEDDING_PROVIDER', 'openai') ??
       'openai') as EmbeddingProviderName,
-    embeddingModel: getEnv(env, 'EMBEDDING_MODEL', 'text-embedding-3-small') ?? 'text-embedding-3-small',
+    embeddingModel:
+      getEnv(env, 'EMBEDDING_MODEL', 'text-embedding-3-small') ?? 'text-embedding-3-small',
     embeddingDimensions: parseEmbeddingDimensions(env),
     mcpEnabled: bool(env, 'MCP_ENABLED', false),
     openai: {
@@ -103,7 +97,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
     },
     anthropic: {
       apiKey: getEnv(env, 'ANTHROPIC_API_KEY'),
-      model: getEnv(env, 'ANTHROPIC_MODEL', 'claude-3-5-sonnet-latest') ?? 'claude-3-5-sonnet-latest',
+      model:
+        getEnv(env, 'ANTHROPIC_MODEL', 'claude-3-5-sonnet-latest') ?? 'claude-3-5-sonnet-latest',
       baseUrl: getEnv(env, 'ANTHROPIC_BASE_URL'),
     },
     gemini: {
@@ -114,7 +109,9 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
     openrouter: {
       apiKey: getEnv(env, 'OPENROUTER_API_KEY'),
       model: getEnv(env, 'OPENROUTER_MODEL', 'openai/gpt-4o-mini') ?? 'openai/gpt-4o-mini',
-      baseUrl: getEnv(env, 'OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1') ?? 'https://openrouter.ai/api/v1',
+      baseUrl:
+        getEnv(env, 'OPENROUTER_BASE_URL', 'https://openrouter.ai/api/v1') ??
+        'https://openrouter.ai/api/v1',
     },
     ollama: {
       baseUrl: getEnv(env, 'OLLAMA_BASE_URL', 'http://localhost:11434') ?? 'http://localhost:11434',
@@ -125,7 +122,8 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
       model: getEnv(env, 'LMSTUDIO_MODEL', 'local-model') ?? 'local-model',
     },
     openclaw: {
-      baseUrl: getEnv(env, 'OPENCLAW_BASE_URL', 'http://localhost:18789') ?? 'http://localhost:18789',
+      baseUrl:
+        getEnv(env, 'OPENCLAW_BASE_URL', 'http://localhost:18789') ?? 'http://localhost:18789',
       model: getEnv(env, 'OPENCLAW_MODEL', 'default') ?? 'default',
       token: getEnv(env, 'OPENCLAW_TOKEN'),
     },
@@ -150,16 +148,20 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): KortexConfig {
 export function validateConfig(config: KortexConfig): void {
   switch (config.aiProvider) {
     case 'openai':
-      if (!config.openai.apiKey) throw new ConfigError('OPENAI_API_KEY is required', 'OPENAI_API_KEY');
+      if (!config.openai.apiKey)
+        throw new ConfigError('OPENAI_API_KEY is required', 'OPENAI_API_KEY');
       break;
     case 'anthropic':
-      if (!config.anthropic.apiKey) throw new ConfigError('ANTHROPIC_API_KEY is required', 'ANTHROPIC_API_KEY');
+      if (!config.anthropic.apiKey)
+        throw new ConfigError('ANTHROPIC_API_KEY is required', 'ANTHROPIC_API_KEY');
       break;
     case 'gemini':
-      if (!config.gemini.apiKey) throw new ConfigError('GEMINI_API_KEY is required', 'GEMINI_API_KEY');
+      if (!config.gemini.apiKey)
+        throw new ConfigError('GEMINI_API_KEY is required', 'GEMINI_API_KEY');
       break;
     case 'openrouter':
-      if (!config.openrouter.apiKey) throw new ConfigError('OPENROUTER_API_KEY is required', 'OPENROUTER_API_KEY');
+      if (!config.openrouter.apiKey)
+        throw new ConfigError('OPENROUTER_API_KEY is required', 'OPENROUTER_API_KEY');
       break;
     case 'ollama':
     case 'lmstudio':
@@ -191,7 +193,10 @@ export function validateConfig(config: KortexConfig): void {
     throw new ConfigError('QDRANT_URL is required when VECTOR_PROVIDER=qdrant', 'QDRANT_URL');
   }
   if (config.embeddingProvider === 'openai' && !config.openai.apiKey) {
-    throw new ConfigError('OPENAI_API_KEY is required when EMBEDDING_PROVIDER=openai', 'OPENAI_API_KEY');
+    throw new ConfigError(
+      'OPENAI_API_KEY is required when EMBEDDING_PROVIDER=openai',
+      'OPENAI_API_KEY',
+    );
   }
 }
 
